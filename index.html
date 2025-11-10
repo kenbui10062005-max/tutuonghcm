@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Tập Tư Tưởng Hồ Chí Minh - Trang Trọng</title>
+    <style>
+        /* 1. Thay đổi font và màu nền chung */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e6f3ff; /* Nền xanh da trời nhạt, gợi nhớ trời thu Ba Đình */
+            color: #2c3e50; /* Màu chữ xanh đen trang trọng */
+            line-height: 1.6;
+        }
+        
+        /* 2. Header và Title nổi bật */
+        h1 {
+            color: #c0392b; /* Màu đỏ nổi bật */
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+
+        /* Thêm biểu tượng Ngôi sao/Cờ */
+        h1::before {
+            content: '⭐';
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+        h1::after {
+            content: '🇻🇳';
+            margin-left: 15px;
+            font-size: 1.2em;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Bóng đổ sâu hơn */
+        }
+        
+        /* 3. Tiêu đề các phần */
+        h2 {
+            color: #004d99; /* Xanh đậm */
+            border-bottom: 3px solid #f1c40f; /* Đường kẻ vàng */
+            padding-bottom: 12px;
+            margin-top: 30px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        h2::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #27ae60; /* Màu xanh lá cây */
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fcfcfc;
+            transition: transform 0.3s ease;
+        }
+        .section:hover {
+            transform: translateY(-3px); /* Hiệu ứng nhấc nhẹ khi di chuột */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 4. Tài liệu mẫu */
+        #taiLieuMau {
+            background-color: #fcf8e3; /* Màu vàng nhạt sang trọng */
+            padding: 20px;
+            border-left: 6px solid #f1c40f; /* Vàng đậm */
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+            border-radius: 6px;
+            box-shadow: inset 0 0 8px rgba(243, 156, 18, 0.2);
+            font-style: italic;
+        }
+        
+        /* 5. Khu vực gõ bài */
+        #baiGo {
+            width: 100%;
+            height: 180px; /* Tăng chiều cao */
+            padding: 15px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            resize: vertical;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+        }
+        #baiGo:focus {
+            border-color: #0066cc;
+            box-shadow: 0 0 5px rgba(0, 102, 204, 0.5);
+        }
+
+        /* 6. Nút bấm (Button) - Màu đỏ của Cờ */
+        button {
+            padding: 12px 25px;
+            background-color: #e74c3c; /* Đỏ tươi */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 3px 0 #c0392b;
+        }
+        button:hover {
+            background-color: #c0392b; /* Đỏ đậm hơn khi hover */
+            transform: translateY(1px);
+            box-shadow: 0 2px 0 #a53228;
+        }
+
+        /* Nút ẩn/hiện tài liệu */
+        #toggleBtn {
+            background-color: #2ecc71; /* Xanh lá */
+            box-shadow: 0 3px 0 #27ae60;
+        }
+        #toggleBtn:hover {
+            background-color: #27ae60;
+            box-shadow: 0 2px 0 #209950;
+        }
+        /* Nút Xem Đáp Án */
+        button[onclick="hienTatCaDapAn()"] {
+            background-color: #f39c12 !important; /* Vàng cam */
+            box-shadow: 0 3px 0 #e67e22;
+        }
+        button[onclick="hienTatCaDapAn()"]:hover {
+            background-color: #e67e22 !important;
+            box-shadow: 0 2px 0 #d35400;
+        }
+
+
+        /* 7. Danh sách Chủ đề */
+        #danhSachChuDe {
+            border: 2px dashed #e74c3c !important; /* Viền đỏ nét đứt */
+            background-color: #ffeaea; /* Nền hồng nhạt */
+            padding: 15px;
+            border-radius: 8px;
+        }
+        #danhSachChuDe li {
+            color: #004d99;
+            margin-bottom: 7px;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s, font-weight 0.2s;
+        }
+        #danhSachChuDe li:hover {
+            font-weight: bold;
+            color: #c0392b !important; /* Chuyển sang màu đỏ */
+            background-color: #f8e0e0;
+        }
+
+        /* 8. Kết quả/Thông báo */
+        .error {
+            background-color: #fef1f1; 
+            color: #cc0000;
+            border: 1px solid #cc0000;
+        }
+        .correct {
+            background-color: #e8f9ee; 
+            color: #006600;
+            border: 1px solid #006600;
+            font-size: 1.1em;
+        }
+
+        /* So sánh lỗi */
+        .diff-added {
+            background-color: #ffcccc; 
+            color: #a00;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+            box-shadow: 0 0 3px #f00;
+        }
+        .diff-removed {
+            background-color: #ffe0b2; /* Vàng cam nhẹ */
+            text-decoration: underline;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        /* 9. Quiz Section */
+        #quiz-navigation {
+            background-color: #ecf0f1; /* Xám nhạt */
+            border-right: 3px solid #3498db; /* Xanh dương */
+            height: auto;
+        }
+        
+        .question {
+            padding: 15px;
+            border-bottom: 1px dashed #ccc;
+            background-color: #fcfcfc;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        .question strong {
+            color: #3498db; /* Xanh dương cho số câu hỏi */
+        }
+
+        .feedback.correct-answer {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border-left: 5px solid #0f5132;
+        }
+        .feedback.wrong-answer {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 5px solid #721c24;
+        }
+
+        /* Navigation Circle */
+        .nav-item {
+            display: inline-block;
+            width: 35px; /* Kích thước lớn hơn */
+            height: 35px;
+            line-height: 35px;
+            border-radius: 50%; /* Hình tròn */
+            margin: 5px;
+            border: 2px solid #bdc3c7;
+            background-color: #fff;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .nav-item:hover {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+            transform: scale(1.05);
+        }
+        .nav-item.current {
+            border: 3px solid #f1c40f; /* Vàng cho câu hiện tại */
+            color: #f1c40f;
+            box-shadow: 0 0 10px rgba(241, 196, 15, 0.8);
+        }
+        .nav-item.correct-nav {
+            background-color: #2ecc71; /* Xanh lá: Đúng */
+            border-color: #27ae60;
+            color: white;
+        }
+        .nav-item.wrong-nav {
+            background-color: #e74c3c; /* Đỏ: Sai */
+            border-color: #c0392b;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="section">
+        <h2>📝 Tự Kiểm Tra Tài Liệu (Học và Gõ lại)</h2>
+        <button onclick="chuyenDenPhan('quiz-navigation')" style="background-color: #3498db; margin-bottom: 15px; box-shadow: 0 3px 0 #2980b9;">Chuyển Đến Trắc Nghiệm 👇</button>
+
+        <button onclick="toggleDanhSachChuDe()">Xem Danh sách Chủ đề</button>
+        
+        <div id="danhSachChuDe" style="display: none; margin-top: 15px;">
+        </div>
+        <p style="margin-top: 15px; font-weight: bold;">Học thuộc đoạn văn sau, sau đó gõ lại vào ô bên dưới để kiểm tra lỗi sai.</p>
+        
+        <h3 id="tieuDeTaiLieuHienTai" style="color:#e67e22;">Câu 10: Phân tích nội dung của Cần, Kiệm, Liêm, Chính theo tư tưởng Hồ Chí Minh. Từ đó, cho biết sự vận dụng tư tưởng Hồ Chí Minh và xây dựng đạo đức trong giai đoạn hiện nay</h3>
+
+        <button onclick="toggleTaiLieuMau()" id="toggleBtn" style="margin-bottom: 10px;">Ẩn Tài liệu (Bắt đầu gõ)</button>
+
+        <div id="taiLieuMau">
+            </div>
+        <textarea id="baiGo" placeholder="Gõ lại nội dung bạn vừa học vào đây..." spellcheck="false"></textarea><br>
+        <button onclick="kiemTraBaiGo()">Kiểm Tra</button>
+
+        <div id="ketQuaSoSanh">
+        </div>
+    </div>
+
+    <div class="section">
+    <h2>❓ Trắc Nghiệm Củng Cố Kiến Thức</h2>
+    <button onclick="chuyenDenPhan('tieuDeTaiLieuHienTai')" style="background-color: #3498db; margin-bottom: 15px; box-shadow: 0 3px 0 #2980b9;">Chuyển Đến Phần Học 👆</button>
+    
+    <div style="display: flex; gap: 25px;"> 
+        
+        <div id="quiz-navigation" style="flex: 0 0 150px; background-color: #f0f0f5; padding: 10px; border-radius: 5px; height: fit-content;">
+            <h4>Tiến độ:</h4>
+            <div id="navigation-list">
+                </div>
+        </div>
+
+        <div style="flex: 1;"> 
+    <div id="quiz-container">
+    </div>
+    <button onclick="kiemTraTracNghiem()">Nộp Bài Trắc Nghiệm</button>
+    <button onclick="resetTracNghiem()" style="background-color: #34495e; margin-left: 10px; box-shadow: 0 3px 0 #2c3e50;">🔄 Reset Bài Làm</button>
+    <button onclick="hienTatCaDapAn()" style="margin-left: 10px; background-color: #f39c12;">👀 Hiện Đáp án</button>
+    <button onclick="anTatCaDapAn()" style="background-color: #95a5a6; display: none;">🙈 Ẩn Đáp án</button>
+
+    <div id="ketQuaTracNghiem">
+        <p>Tiến độ: **0/${CAU_HOI_TRAC_NGHIEM.length}** | Điểm hiện tại: **0**</p>
+    </div>
+</div>
+    </div>
+    </div>
+<script>
+    const CHU_DE_HOC_TAP = [
+        {
+            tieuDe: "Câu 1: Trình bày nhân tố chủ quan hình thành tư tưởng Hồ Chí Minh",
+            noiDung: `Nhân tố chủ quan là nhân tố quyết định sự ra đời tư tưởng Hồ Chí Minh, thể hiện ở các khía cạnh: 
+
+1. Phẩm chất: 
+    Hồ Chí Minh là người có lý tưởng cao cả và hoài bão lớn cứu dân, cứu nước. Người có bản lĩnh tư duy độc lập, tự chủ, sáng tạo, giàu tính phê phán, đổi mới và cách mạng; đã vận dụng đúng quy luật chung của xã hội loài người, của cách mạng thế giới vào hoàn cảnh cụ thể của Việt Nam. 
+
+    Hồ Chí Minh là người có tầm nhìn chiến lược, bao quát thời đại, đã đưa cách mạng Việt Nam vào dòng chảy chung của cách mạng thế giới. Người có năng lực tổng kết thực tiễn, năng lực tiên tri, dự báo tương lai chính xác và kỳ diệu để dẫn dắt toàn Đảng, toàn quân, toàn dân ta đi tới bến bờ thắng lợi vinh quang. 
+
+    Hồ Chí Minh là người suốt đời tận trung với nước, tận hiếu với dân, suốt đời đấu tranh cho sự nghiệp cách mạng của dân tộc và nhân loại. 
+
+2. Tài năng: 
+    Hồ Chí Minh là người có vốn sống và thực tiễn cách mạng phong phú, phi thường. Người hiểu sâu sắc chủ nghĩa đế quốc, chủ nghĩa thực dân, thấu hiểu về phong trào giải phóng dân tộc, về xây dựng chủ nghĩa xã hội, về xây dựng đảng cộng sản,... không chỉ qua nghiên cứu lý luận mà còn qua hoạt động thực tiễn ở nhiều nước. 
+
+    Hồ Chí Minh là nhà tổ chức vĩ đại của cách mạng Việt Nam. Người đã hiện thực hóa tư tưởng, lý luận cách mạng thành hiện thực; đồng thời tổng kết thực tiễn, bổ sung phát triển lý luận cách mạng. 
+
+    Như vậy, những phẩm chất cá nhân cùng tài năng hoạt động thực tiễn phong phú trên nhiều lĩnh vực khác nhau ở trong nước và trên thế giới là nhân tố chủ quan hình thành nên tư tưởng Hồ Chí Minh.`
+        },
+        {
+            tieuDe: "Câu 2: Trình bày quan điểm: Độc lập dân tộc phải gắn liền với tự do, hạnh phúc của nhân dân",
+            noiDung: `Theo Hồ Chí Minh, độc lập dân tộc phải gắn liền tự do, hạnh phúc của nhân dân. Điều này thể hiện ở những khía cạnh sau đây: 
+- Một là, ĐỘC LẬP dân tộc phải gắn với TỰ DO của nhân dân: 
+Hồ Chí Minh đánh giá cao học thuyết Tam dân của Tôn Trung Sơn về độc lập và tự do: dân tộc độc lập, dân quyền tự do và dân sinh hạnh phúc. 
+Bằng lý lẽ đầy thuyết phục, trong khi viện dẫn bản Tuyên ngôn Nhân quyền và Dân quyền của Pháp, Hồ Chí Minh khẳng định dân tộc Việt Nam đương nhiên cũng phải được tự do và bình đẳng về quyền lợi. “Đó là những lẽ phải không ai chối cãi được”. 
+Trong Chánh cương vắn tắt của Đảng, Người cũng đã xác định rõ mục tiêu của cách mạng là "Làm cho nước Nam được hoàn toàn độc lập... dân chúng được tự do".Tổng khởi nghĩa Tháng Tám năm 1945 thành công, nước nhà được độc lập và một lần nữa Hồ Chí Minh khẳng định độc lập phải gắn với tự do. Người nói: “Nước độc lập mà dân không hưởng hạnh phúc tự do, thì độc lập cũng chẳng có nghĩa lý gì”. 
+- Hai là, độc lập dân tộc phải gắn với HẠNH PHÚC của nhân dân: 
+Sau Cách mạng Tháng Tám, mặc dù giành được chính quyền nhưng nhân dân còn đói rét, mù chữ, Hồ Chí Minh yêu cầu Đảng và Nhà nước phải:
+                “Làm cho dân có ăn.
+                Làm cho dân có mặc.
+                Làm cho dân có chỗ ở.
+                Làm cho dân có học hành”.
+    Có thể thấy trong suốt cuộc đời hoạt động cách mạng của mình, Chủ tích Hồ Chí Minh luôn coi độc lập dân tộc phải gắn với tự do, hạnh phúc của nhân dân.Đúng như Người khẳng định: “Tôi chỉ có một sự ham muốn, ham muốn tột bậc, là làm sao cho nước ta hoàn toàn độc lập, dân ta được hoàn toàn tự do, đồng bào ai cũng có cơm ăn áo mặc, ai cũng được học hành”.`
+        },
+        {
+            tieuDe: "Câu 3: Trình bày luận điểm: Cách mạng giải phóng dân tộc muốn thắng lợi phải đi theo con đường cách mạng vô sản",
+            noiDung: `Thất bại của các phong trào yêu nước chống thực dân Pháp ở Việt Nam cuối thế kỷ XIX, đầu thế kỷ XX đã chứng tỏ những con đường giải phóng dân tộc theo tư tưởng phong kiến và tư tưởng tư sản đã không đáp ứng được yêu cầu khách quan là giành độc lập, tự do cho dân tộc.Hồ Chí Minh rất khâm phục tinh thần yêu nước của ông cha,nhưng Người không hoàn toàn tán thành các con đường cứu nước ấy, mà quyết tâm ra đi tìm con đường cứu nước mới. 
+    Tìm hiểu cách mạng tư sản Pháp và cách mạng tư sản Mỹ, Người nhận thấy: Cách mệnh Pháp cũng như cách mệnh Mỹ, nghĩa là cách mệnh tư bản, cách mệnh không đến nơi, tiếng là cộng hòa và dân chủ, kỳ thực trong thì nó tước lục công nông, ngoài thì nó áp bức thuộc địa. Bởi lẽ đó, Người không đi theo con đường cách mạng tư sản.
+    Năm 1917, Cách mạng Thán 10 Nga thằng lợi đã ảnh hưởng tới việc lựa chọn con đường cứu nước, giải phóng dân tộc của Hồ Chí Minh. 
+    Năm 1920, sau khi đọc bản Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và vấn đề thuộc địa của Lênin, Hồ Chí Minh đã tìm thấy cho Việt Nam con đường cứu nước, giải phóng dân tộc đúng đắn. Người khẳng định: “Muốn cứu nước và giải phóng dân tộc không có con đường nào khác con đường cách mạng vô sản”. 
+    Học thuyết cách mạng vô sản được vận dụng một cách sáng tạo vào điều kiện cách mạng Việt Nam.Đó là giải phóng dân tộc gắn với giải phóng giai cấp, trong đó giải phóng dân tộc là trước hết, trên hết. Đó là độc lập dân tộc gắn liền với chủ nghĩa xã hội. Phương hướng này hoàn toàn phù hợp với xu thế phát triển của thời đại,đồng thời giải quyết triệt để những yêu cầu mà cách mạng Việt Nam đặt ra vào cuối thế kỉ XIX đầu thế kỉ.`
+        },
+        {
+            tieuDe: "Câu 4: Trình bày luận điểm: Đảng là đạo đức, là văn minh.",
+        noiDung: `Trong bài nói tại Lễ Kỷ niệm 30 năm Ngày thành lập Đảng (năm 1960), Chủ tịch Hồ Chí Minh cho rằng: “Đảng ta là đạo đức, là văn minh”. Quan điểm này vừa là sự ghi nhận những giá trị "đạo đức, văn minh" mà Đảng đạt được, vừa là yêu cầu Người đặt ra đối với Đảng ta trong những giai đoạn tiếp theo.
+             "Đảng là đạo đức" thể hiện ở chỗ:
+               (1) Mục đích hoạt động của Đảng là lãnh đạo đấu tranh giải phóng dân tộc, giải phóng xã hội, giải phóng giai cấp, giải phóng con người.
+               (2) Cương lĩnh, đường lối, chủ trương và mọi hoạt động thực tiễn của Đảng đều phải nhằm mục đích đó.
+               (3) Đội ngũ đảng viên phải luôn luôn thấm nhuần đạo đức cách mạng, ra sức tu dưỡng, rèn luyện, suốt đời trung với Đảng, trung với nước, hiếu với dân.
+
+             "Đảng là văn minh" thể hiện ở chỗ:
+             (1) Đảng văn minh tiêu biểu cho lương tâm, trí tuệ và danh dự của dân tộc.
+             (2) Đảng văn minh ra đời phù hợp với quy luật phát triển tiến bộ của dân tộc và nhân loại.
+             (3) Đảng văn minh luôn trong sạch, vững mạnh, làm tròn sứ mệnh lãnh đạo đất nước giành độc lập dân tộc và mang lại tự do, ấm no, hạnh phúc cho nhân dân.
+             (4) Đảng văn minh thể hiện trong giai đoạn cầm quyền. Dù Đảng lãnh đạo đất nước nhưng Đảng không đứng trên dân tộc. Mọi hoạt động của Đảng vẫn nằm trong khuôn khổ Hiến pháp và pháp luật.
+             (5) Đảng văn minh thể hiện ở đội ngũ đảng viên, đều là những chiến sĩ tiên phong, gương mẫu trong công tác và cuộc sống.
+             (6) Đảng văn minh có quan hệ quốc tế trong sáng, hoạt động không những vì lợi ích dân tộc mà còn vì hòa bình, độc lập, dân chủ và tiến bộ trên toàn thế giới.
+            Như vậy, xây dựng Đảng để xứng đáng "Đảng đạo đức", "Đảng văn minh" là nội dung đặc sắc của tư tưởng Hồ Chí Minh. So với lý luận của Lênin về đảng kiểu mới của giai cấp vô sản,đây cũng là bước phát triển lý luận sáng tạo độc đáo của Người.`
+    },
+    {
+        tieuDe: "Câu 5: Trình bày quan điểm Hồ Chí Minh về xây dựng con người.",
+        noiDung: `Quan điểm Hồ Chí Minh về xây dựng con người thể hiện ở các khía cạnh sau:
+            1. Ý nghĩa của việc xây dựng con người:
+    Xây dựng con người là yêu cầu khách quan, vừa cấp bách, vừa lâu dài của cách mạng.Con người phải được đặt vào vị trí trung tâm của sự phát triển. Hồ Chí Minh mượn ý của Quản Trọng: “Vì lợi ích trăm năm thì phải trồng người”.Trồng người phải được tiến hành bền bỉ, thường xuyên trong suốt cuộc đời mỗi người, đây vừa là trách nhiệm của cá nhân,vừa là trách nhiệm của Đảng, Nhà nước, các đoàn thể chính trị - xã hội.            
+            2. Điều kiện xây dựng con người:Muốn xây dựng chủ nghĩa xã hội, trước hết cần có những con người xã hội chủ nghĩa. Đó là con người có những phẩm chất cơ bản, tiêu biểu cho con người mới xã hội chủ nghĩa, làm gương, lôi cuốn xã hội.Mỗi bước xây dựng những con người như vậy là một nấc thang xây dựng chủ nghĩa xã hội.
+            3. Nội dung xây dựng con người:Xây dựng con người toàn diện vừa hồng vừa chuyên ở những khía cạnh: 
+                -Có lòng yêu nước nồng nàn, tinh thần quốc tế trong sáng.
+                -Có ý thức làm chủ, có tinh thần tập thể XHCN mình vì mọi người, mọi người vì mình.
+                -Cần kiệm xây dựng đất nước và sẵn sàng bảo vệ Tổ quốc.
+                -Có phương pháp làm việc khoa học, phong cách quần chúng, dân chủ, nêu gương.            
+            4. Phương pháp xây dựng con người:Chủ tịch Hồ Chí Minh cho rằng xây dựng con người cần phải thông qua quá trình tự tu dưỡng, tự rèn luyện của mỗi người,kết hợp với xây dựng cơ chế, tính khoa học của bộ máy và tạo dựng nền dân chủ.Phát huy vai trò của các tổ chức Đảng, chính quyền, đoàn thể thông qua các phong trào Thi đua yêu nước, Người tốt việc tốt… Đặc biệt là chú trọng vai trò của giáo dục và đào tạo: “Hiền dữ phải đâu là tính sẵn / Phần nhiều do giáo dục mà nên”.
+            `
+    },
+    {
+        tieuDe: "Câu 6: Phân tích khái niệm Tư tưởng Hồ Chí Minh.Từ đó, chỉ rõ ý nghĩa học tập tư tưởng Hồ Chí Minh đối với sinh viên.",
+        noiDung: `1. Phân tích khái niệm Tư tưởng Hồ Chí Minh:
+            
+            Khái niệm: Tư tưởng Hồ Chí Minh là một hệ thống quan điểm toàn diện và sâu sắc về những vấn đề cơ bản của cách mạng Việt Nam, kết quả của sự vận dụng và phát triển sáng tạo chủ nghĩa Mác - Lênin vào điều kiện cụ thể của nước ta, kế thừa và phát triển các giá trị truyền thống tốt đẹp của dân tộc, tiếp thu tinh hoa văn hóa nhân loại; là tài sản tinh thần vô cùng to lớn và quý giá của Đảng và dân tộc ta, mãi mãi soi đường cho sự nghiệp cách mạng của nhân dân ta giành thắng lợi.
+            Phân tích:Khái niệm trên đây chỉ rõ nội hàm cơ bản của tư tưởng Hồ Chí Minh,cơ sở hình thành cũng như ý nghĩa của tư tưởng đó.Cụ thể:
+            Một là, khái niệm này đã nêu rõ bản chất khoa học và cách mạng cũng như nội dung cơ bản của tư tưởng Hồ Chí Minh.  
+            Hai là, nêu lên cơ sở hình thành tư tưởng Hồ Chí Minh là chủ nghĩa Mác - Lênin, đồng thời tiếp thu các giá trị truyền tốt đẹp của dân tộc và tinh hoa văn hóa nhân loại. 
+            Ba là, nêu lên ý nghĩa của tư tưởng Hồ Chí Minh, khẳng định tư tưởng Hồ Chí Minh là tài sản tinh thần vô cùng to lớn và quý giá của Đảng và dân tộc ta, mãi mãi soi đường cho sự nghiệp cách mạng của nhân dân ta. 
+            2. Ý nghĩa học tập tư tưởng Hồ Chí Minh đối với sinh viên:
+            Sinh viên là đội ngũ trí thức trẻ được Chủ tịch Hồ Chí Minh hết sức kỳ vọng. Thật vậy, nước nhà thịnh hay suy, yếu hay mạnh, một phần lớn là do các thanh niên. Qua việc học tập tư tưởng Hồ Chí Minh, sinh viên chúng em được: 
+            -	Nâng cao năng lực tư duy lý luận, có thêm hiểu biết về nền tảng tư tưởng của Đảng, biết vận dụng tư tưởng Hồ Chí Minh để giải quyết các vấn đề đặt ra trong cuộc sống.
+            -	Đặc biệt, là sinh viên của Mái trường Đại dương, với đặc thù đào tạo sau khi ra trường được đi nhiều nơi, tiếp xúc với nhiều nền văn hóa, nhiều chế độ chính trị khác nhau, bản thân em càng thấy được tầm quan trọng to lớn của việc học tập Tư tưởng Hồ Chí Minh. Em sẽ luôn giữ vững niềm tin, lý tưởng vào sự nghiệp cách mạng; sống đạo đức và trách nhiệm, không để cái xấu làm dao động, lôi kéo, mua chuộc; dù ở cương vị nào cũng sẵn sàng cống hiến tâm huyết và tài năng để xây dựng đất nước ngày càng giàu mạnh, đóng góp thiết thực và hiệu quả vào sự nghiệp cách mạng mà cha ông ta đã để lại. `
+    },
+    {
+        tieuDe: "Câu 7:Phân tích quan điểm Hồ Chí Minh về tính tất yếu ra đời của Đảng Cộng sản Việt Nam. Từ đó, cho biết sự vận dụng tư tưởng Hồ Chí Minh về xây dựng Đảng trong giai đoạn hiện nay.  .",
+        noiDung: `1. Tính tất yếu ra đời của Đảng Cộng sản Việt Nam:
+                Từ rất sớm, Hồ Chí Minh đã thấy được sự cần thiết phải có một chính đảng vô sản để lãnh đạo cách mạng Việt Nam tới thành công. Vì thế, sau khi tìm thấy con đường cứu nước, giải phóng dân tộc, Người đã tích cực chuẩn bị về chính trị, tư tưởng, tổ chức cho sự ra đời của Đảng. Người khẳng định: Cách mạng trước hết phải có “đảng cách mệnh, để trong thì vận động và tổ chức dân chúng, ngoài thì liên lạc với dân tộc bị áp bức và vô sản giai cấp mọi nơi”.
+                Lý luận chung trên thế giới cho thấy, sự ra đời của đảng cộng sản là từ sự kết hợp giữa chủ nghĩa xã hội khoa học với phong trào công nhân. Còn đối với Việt Nam, Hồ Chí Minh cho rằng: Sự ra đời của Đảng Cộng sản Việt Nam là kết quả của sự kết hợp giữa chủ nghĩa Mác - Lênin với phong trào công nhân và phong trào yêu nước. Như vậy về mặt lý luận, so với học thuyết Mác - Lênin thì Chủ tịch Hồ Chí Minh đã sáng tạo thêm yếu tố thứ ba, đó là phong trào yêu nước. Đây là một sáng tạo rất lớn của Người về sự ra đời của Đảng Cộng sản Việt Nam. 
+                Đảng Cộng sản Việt Nam ra đời năm 1930, tồn tại và phát triển chính là từ nhu cầu tất yếu của xã hội Việt Nam. Đảng đã được toàn dân tộc trao cho sứ mệnh lãnh đạo đất nước trong sự nghiệp giải phóng dân tộc và đi lên chủ nghĩa xã hội. Thực tiễn cho thấy Đảng đã lãnh đạo cách mạng Việt Nam đạt được nhiều thành tựu to lớn, vĩ đại trong: cách mạng giải phóng dân tộc, chiến tranh bảo vệ Tổ quốc và công cuộc đổi mới đất nước. 
+                2. Vận dụng tư tưởng Hồ Chí Minh về xây dựng Đảng:
+                Thứ nhất, phải đề ra đường lối, chủ trương đúng đắn: Đường lối, chủ trương này phải dựa trên nền tảng lý luận Mác - Lênin và tư tưởng Hồ Chí Minh; phải phù hợp với từng giai đoạn, từng thời kỳ. Ví dụ:  
+                Thời kỳ trước Cách mạng tháng Tám: Đảng giương cao ngọn cờ giải phóng dân tộc lên trên hết, trước hết.  
+                Thời kỳ trước năm 1975: Đảng thực hiện đồng thời hai nhiệm vụ chiến lược là xây dựng chủ nghĩa xã hội ở miền Bắc và kháng chiến chống Mỹ cứu nước ở miền Nam, thống nhất đất nước. 
+                Thời kỳ từ năm 1986: Đảng chủ trương đổi mới toàn diện, đưa đất nước ngày càng phát triển. 
+                Thứ hai, phải tổ chức thực hiện thật tốt đường lối, chủ trương của Đảng: Đường lối chủ trương đúng đắn phải được hiện thực hóa trong cuộc sống, mang lại lợi ích cho đất nước và nhân dân.  
+                Thứ ba, phải chú trọng hơn nữa công tác chỉnh đốn Đảng: Đảng phải thường xuyên xây dựng và chỉnh đốn để ngày càng vững mạnh, xứng đáng vừa là người lãnh đạo - vừa là người đày tớ thật trung thành của nhân dân.  
+                Thứ tư, đối với sinh viên: Sinh viên là đảng viên cần tiếp tục thực hiện thật tốt đường lối, quan điểm, chủ trương, điều lệ Đảng, gương mẫu trong cuộc sống và học tập. Sinh viên chưa là đảng viên cần tiếp tục tu dưỡng rèn luyện, có lý tưởng phấn đấu đứng trong hàng ngũ của Đảng, bảo vệ Đảng, góp phần thực hiện thắng lợi các mục tiêu của đất nước.`
+    },
+    {
+        tieuDe: "Câu 8: Phân tích quan điểm Hồ Chí Minh về những tiêu cực trong bộ máy Nhà nước. Từ đó, cho biết sự vận dụng tư tưởng Hồ Chí Minh về xây dựng Nhà nước trong giai đoạn hiện nay. ",
+        noiDung: `1. Quan điểm Hồ Chí Minh về những tiêu cực trong bộ máy Nhà nước:
+                Trong quá trình lãnh đạo xây dựng Nhà nước, Chủ tịch Hồ Chí Minh thường nhắc nhở mọi người phải đề phòng và khắc phục những tiêu cực sau đây: 
+                Thứ nhất, đặc quyền, đặc lợi: Đó là thói đặc quyền đặc lợi, cậy mình là người trong cơ quan chính quyền để cửa quyền, hách dịch với dân, đồng thời vơ vét tiền của, lợi dụng chức vụ để làm lợi cho cá nhân mình. Theo Hồ Chí Minh, muốn xây dựng Nhà nước trong sạch, vững mạnh cần phải tẩy trừ những tiêu cực đó. 
+                Thứ hai, tham ô, lãng phí, quan liêu: Chủ tịch Hồ Chí Minh coi tham ô, lãng phí, quan liêu là “giặc nội xâm”, “giặc ở trong lòng”, thứ giặc nguy hiểm hơn giặc ngoại xâm. Lãng phí là lãng phí sức lao động, lãng phí thời giờ, lãng phí tiền của của nhân dân. Bệnh quan liêu là chỉ biết khai hội, viết chỉ thị, xem báo cáo trên giấy, chứ không kiểm tra đến nơi đến chốn. 
+                Thứ ba, “tư túng”, “chia rẽ”, “kiêu ngạo”: Hồ Chí Minh kịch liệt lên án tệ kéo bè, béo cánh, tệ nạn bà con bạn hữu không tài năng gì cũng kéo vào chức này chức nọ. Người có tài có đức, nhưng không vừa lòng thì bị đẩy ra ngoài. Trong chính quyền, là hiện tượng gây mất đoàn kết, cậy thế, kiêu ngạo, làm mất uy tín của Chính phủ đối với nhân dân. 
+                2. Vận dụng tư tưởng Hồ Chí Minh về xây dựng Nhà nước  
+                Một là, phải xây dựng Nhà nước thật sự trong sạch, vững mạnh 
+               -Nhà nước trong sạch vững mạnh thể hiện ở hệ thống pháp luật nghiêm minh, công bằng và nhân văn, luôn tôn trọng và bảo đảm quyền con người, quyền và nghĩa vụ của công dân. Cần đẩy mạnh việc hoàn thiện hệ thống pháp luật gắn với tổ chức thi hành pháp luật đầy đủ, công bằng và triệt để. 
+               -Chú trọng xây dựng đội ngũ cán bộ, công chức đủ đức và tài; Tích cực đấu tranh phòng chống tham nhũng, lãng phí, quan liêu, hách dịch, cửa quyền; Có cơ chế để thu hút, đãi ngộ, trọng dụng nhân tài. 
+                Hai là, đổi mới, tăng cường sự lãnh đạo của Đảng đối với Nhà nước 
+              - Tiếp tục nâng cao hiệu quả thực hiện và đổi mới phương thức lãnh đạo của Đảng đối với Nhà nước. Đảng lãnh đạo bằng chủ trương, đường lối; Nhà nước thể chế hóa thành hiến pháp và pháp luật; thực hiện đúng nguyên tắc: Đảng lãnh đạo, Nhà nước quản lý, nhân dân làm chủ. Đây là một trong những yếu tố quyết định sự thành công của việc xây dựng Nhà nước ta hiện nay theo tư tưởng Hồ Chí Minh.`
+    },
+    {
+        tieuDe: "Câu 9: Phân tích quan điểm Hồ Chí Minh về điều kiện xây dựng khối đại đoàn kết toàn dân tộc. Từ đó, cho biết sự vận dụng của Đảng trong việc xây dựng khối đại đoàn kết toàn dân tộc. ",
+        noiDung: `1. Điều kiện để xây dựng khối đại đoàn kết toàn dân tộc:
+                Một là, phải lấy lợi ích chung làm điểm quy tụ, đồng thời tôn trọng các lợi ích khác biệt chính đáng. Chỉ có xử lý tốt mối quan hệ lợi ích, trong đó tìm ra lợi ích chung, điểm tương đồng thì mới đoàn kết được mọi lực lượng. Hồ Chí Minh đưa ra hình ảnh 5 ngón tay có ngón dài ngón ngắn, nhưng đều thuộc một bàn tay đã nói lên cái nhìn sâu sắc của Người khi xây dựng khối đại đoàn kết toàn dân tộc. 
+                Hai là, phải kế thừa truyền thống yêu nước, nhân nghĩa, đoàn kết của dân tộc. Truyền thống này được hình thành, củng cố và phát triển trong suốt quá trình dựng nước và giữ nước hàng ngàn năm của dân tộc, trở thành giá trị bền vững, thấm sâu vào tư tưởng, tình cảm, tâm hồn của mỗi con người Việt Nam, được lưu truyền qua các thế hệ. 
+                Ba là, phải có lòng khoan dung, độ lượng với con người. Theo Hồ Chí Minh, trong mỗi cá nhân cũng như mỗi cộng đồng đều có những ưu điểm, khuyết điểm, mặt tốt, mặt xấu… Nhưng vì lợi ích của cách mạng, cần phải có lòng khoan dung độ lượng, trân trọng phần thiện dù nhỏ nhất ở mỗi con người, có vậy mới có thể tập hợp, quy tụ rộng rãi mọi lực lượng. 
+                Bốn là, phải có niềm tin vào nhân dân. Với Hồ Chí Minh, yêu dân, tin dân, dựa vào dân, sống, đấu tranh vì hạnh phúc của nhân dân là nguyên tắc tối cao. Nguyên tắc này vừa là sự tiếp nối truyền thống dân tộc "nước lấy dân làm gốc", "chở thuyền và làm lật thuyền cũng là dân", đồng thời là sự quán triệt sâu sắc nguyên lý mácxít "cách mạng là sự nghiệp của quần chúng". 
+                2. Sự vận dụng của Đảng trong việc xây dựng khối đại đoàn kết toàn dân tộc Đảng đã vận dụng sáng tạo tư tưởng Hồ Chí Minh, phát huy cao nhất sức mạnh đại đoàn kết toàn dân tộc để đưa lại nhiều thắng lợi to lớn cho cách mạng Việt Nam. Ví dụ: (SV phân tích) 
+                                      Trong kháng chiến chống Pháp: ....... 
+                                      Trong kháng chiến chống Mỹ.....
+                                      Trong công cuộc đổi mới....`
+    },
+    {
+        tieuDe: "Câu 10: Phân tích nội dung của Cần, Kiệm, Liêm, Chính theo tư tưởng Hồ Chí Minh. Từ đó, cho biết sự vận dụng tư tưởng Hồ Chí Minh về xây dựng đạo đức trong giai đoạn hiện nay  ",
+        noiDung: `1. Nội dung của Cần, Kiệm, Liêm, Chính:
+            Cần, kiệm, liêm, chính là nội dung cốt lõi của đạo đức cách mạng. Theo Hồ Chí Minh: 
+            Cần tức là lao động cần cù, siêng năng, lao động có kế hoạch, sáng tạo, lao động với năng suất và hiệu quả cao. 
+            Kiệm là tiết kiệm, không xa xỉ, không hoang phí, không bừa bãi. Tiết kiệm sức lao động, tiết kiệm thì giờ, tiền của của đất nước, của nhân dân, không phô trương hình thức, không liên hoan chè chén lu bù. CẦN và KIỆM phải đi đôi với nhau, như hai chân của con người. 
+            Liêm là trong sạch, không tham lam. Không tham địa vị, không tham tiền tài, không tham sung sướng, không ham người tâng bốc mình. Vì vậy luôn là người quang minh chính đại, không bao giờ hủ hóa.  
+            Chính nghĩa là không tà, nghĩa là thẳng thắn, đứng đắn. Đối với mình: chớ tự kiêu, tự đại. Đối với người: chớ nịnh hót người trên, xem khinh người dưới. Đối với việc: phải để việc công, việc nước lên trước việc tư, việc nhà. 
+            Hồ Chí Minh quan niệm: Một dân tộc biết cần, biết kiệm, biết liêm là một dân tộc giàu về vật chất, mạnh về tinh thần, là một dân tộc văn minh tiến bộ. Người coi cần, kiệm, liêm, chính là bốn đức tính cơ bản của con người, giống như bốn mùa của trời, bốn phương của đất vậy. 
+            2. Vận dụng tư tưởng Hồ Chí Minh về xây dựng đạo đức  
+           -Đối với mỗi người nói chung: Cần phải học tập và làm theo đạo đức Hồ Chí Minh ở nhiều phương diện: 
+           + Trung với nước, hiếu với dân, suốt đời đấu tranh cho sự nghiệp cách mạng. 
+           + Tu dưỡng, rèn luyện theo tấm gương cần, kiệm, liêm, chính, chí công vô tư; đức khiêm tốn, giản dị, trung thực. 
+           + Có đức tin tuyệt đối vào sức mạnh của con người, hết lòng, hết sức phục vụ nhân dân. 
+           + Có ý chí và nghị lực tinh thần to lớn, quyết tâm vượt qua mọi thử thách, khó khăn để đạt được mục đích cuộc sống. 
+           -Đối với sinh viên khi còn ngồi trên ghế nhà trường, việc học tập đạo đức Hồ Chí Minh càng cần được thể hiện cụ thể trong cuộc sống, trong học tập và rèn luyện (Liên hệ cụ thể tới bản thân sinh viên). Mỗi sinh viên cần phải có khát vọng, hoài bão, trau dồi đạo đức cách mạng, tích cực tu dưỡng phấn đấu để trở thành người công dân ưu tú, sẵn sàng cống hiến cho đất nước mạnh giàu, phồn vinh, hạnh phúc, sánh vai với các cường quốc năm châu như Bác Hồ hằng mong đợi.`
+        }
+        
+    ];
+    let TAI_LIEU_MAU_HIEN_TAI = ""; 
+    const CAU_HOI_TRAC_NGHIEM = [
+        {
+            cauhoi: "“Đảng lấy chủ nghĩa Mác-Lênin và tư tưởng HCM làm nền tảng tư tưởng, kim chỉ nam cho hành động”, câu nói trên lần đầu được ĐCSVN khẳng định tại Đại hội Đảng toàn quốc lần thứ mấy?",
+            dapan: ["Lần thứ IV (1976)", "Lần thứ V (1981)", "Lần thứ VI (1986)", "Lần thứ VII (1991)"],
+            dapanDung: "Lần thứ VII (1991)",
+        },
+        {
+            cauhoi: "Nội dung cốt lõi của tư tưởng HCM là:",
+            dapan: ["Độc lập dân tộc gắn liền với chủ nghĩa xã hội", "Giải phóng dân tộc.", "Giải phóng giai cấp.", "Giải phóng con người."],
+            dapanDung: "Độc lập dân tộc gắn liền với chủ nghĩa xã hội",
+        },
+        {
+            cauhoi: "Nghị quyết 24C/18.65 tôn vinh Chủ tịch HCM là Anh hùng giải phóng dân tộc và Danh nhân văn hoá kiệt xuất được UNESCO thông qua vào năm?",
+            dapan: ["Năm 1969", "Năm 1975", "Năm 1987", "Năm 1990"],
+            dapanDung: "Năm 1987",
+        },
+        {
+            cauhoi: "Một trong những nguồn gốc của tư tưởng HCM là tiếp thu?",
+            dapan: ["Lòng nhân ái, đức hy sinh của Hồi giáo", "Các giá trị văn hoá tiến bộ của thời kì Phục hưng", "Giá trị truyền thống dân tộc", "Văn hoá Phục hưng"],
+            dapanDung: "Giá trị truyền thống dân tộc",
+        },
+        {
+            cauhoi: "Một trong những nguồn gốc của tư tưởng HCM là tiếp thu?",
+            dapan: ["Tinh hoa văn hoá nhân loại", "Các giá trị văn hoá tiến bộ của thời kì Phục hưng", "Toàn bộ tư tưởng của các nhà khai sáng", "Lòng nhân ái, đức hy sinh của Hồi giáo"],
+            dapanDung: "Tinh hoa văn hoá nhân loại",
+        },
+        {
+            cauhoi: "Điếu văn của Ban chấp hành Trung ương Đảng Lao động VN năm 1969 khẳng định: “Dân tộc ta, nhân dân ta, non sông đất nước ta đã sinh ra HỒ CHỦ TỊCH,người anh hùng dân tộc vĩ đại, và chính Người đã làm … dân tộc ta, nhân dân ta và non sông đất nước ta”. Từ còn thiếu là?",
+            dapan: ["Nổi tiếng", "Nâng tầm", "Rạng danh", "Rạng rỡ"],
+            dapanDung: "Rạng rỡ",
+        },
+        {
+            cauhoi: "Ngày 21/6/1925, tờ báo do HCM sáng lập xuất bản số đầu tiên, đánh dấu sự ra đời của nền báo chí cách mạng VN. Tờ báo đó là?",
+            dapan: ["Báo Thanh niên", "Báo Người cùng khổ (Le Paria)", "Báo Nhân dân", "Báo Tuổi trẻ"],
+            dapanDung: "Báo Thanh niên",
+        },
+        {
+            cauhoi: "“Luận chương của V. I. Lênin làm cho tôi rất cảm động, phấn khởi, sáng tỏ, tin tưởng biết bao. Tôi vui mừng đến phát khóc lên. Ngồi một mình trong buồng mà tôi nói to lên như đang nói trước quần chúng đông đảo: Hỡi … bị đoạ đày đau khổ, đây là cái cần thiết cho chúng ta, đây là con đường giải phóng của chúng ta”. Từ còn thiếu là?",
+            dapan: ["Nhân dân", "Người dân", "Đồng bào", "Anh em"],
+            dapanDung: "Đồng bào",
+        },
+        {
+            cauhoi: "Giai đoạn tìm tòi con đường cứu nước, giải phóng dân tộc Chủ tịch HCM được tính từ?",
+            dapan: ["1890 – 1911", "1911 – 1920", "1921 – 1930", "1930 – 1941"],
+            dapanDung: "1911 – 1920",
+        },
+        {
+            cauhoi: "Giai đoạn hình thành cơ bản tư tưởng về con đường cách mạng VN của Chủ tịch HCM được tính từ?",
+            dapan: ["1911 – 1920", "1921 – 1930", "1930 – 1941", "1941 – 1969"],
+            dapanDung: "1921 – 1930",
+        },
+        {
+            cauhoi: "Giai đoạn hình thành tư tưởng yêu nước và chí hướng cứu nước của Chủ tịch HCM được tính từ?",
+            dapan: ["1890 – 1911", "1911 – 1920", "1921 – 1930", "1930 – 1941"],
+            dapanDung: "1890 – 1911",
+        },
+        {
+            cauhoi: "Giai đoạn vượt qua thử thách, kiên trì giữ vững lập trường cách mạng của Chủ tịch HCM được tính từ?",
+            dapan: ["1911 – 1920", "1921 – 1930", "1930 – 1941", "1941 – 1969"],
+            dapanDung: "1930 – 1941",
+        },
+        {
+            cauhoi: "Giai đoạn tư tưởng HCM tiếp tục phát triển hoàn thiện được tính từ?",
+            dapan: ["1911 – 1920", "1921 – 1930", "1930 – 1941", "1941 – 1969"],
+            dapanDung: "1941 – 1969",
+        },
+        {
+            cauhoi: "Nguồn gốc quyết định bản chất tư tưởng HCM là?",
+            dapan: ["Giá trị truyền thống dân tộc", "Chủ nghĩa Mác – Lênin", "Tinh hoa văn hoá nhân loại", "Phẩm chất cá nhân HCM"],
+            dapanDung: "Chủ nghĩa Mác – Lênin",
+        },
+        {
+            cauhoi: "Năm 1925, HCM đã cải tổ Tâm Tâm xã thành tổ chức nào?",
+            dapan: ["Hội VN Cách mạng thanh niên", "Đảng Phục Việt", "Đảng Hưng Nam", "VN Quốc dân Đảng"],
+            dapanDung: "Hội VN Cách mạng thanh niên",
+        },
+        {
+            cauhoi: "Trong Thư gửi các bạn thanh niên ngày 17/8/1947, Chủ tịch HCM viết: “Thanh niên là … của nước nhà. Thật vậy nước nhà thịnh hay suy, yếu hay mạnh một phần lớn là do các thanh niên”. Điền từ còn thiếu?",
+            dapan: ["Người chủ tương lai", "Thế hệ tương lai", "Lực lượng hùng hậu", "Lực lượng cách mạng"],
+            dapanDung: "Người chủ tương lai",
+        },
+        {
+            cauhoi: "Lãnh tụ Nguyễn Ái Quốc đi tìm đường cứu nước khi nào?",
+            dapan: ["Ngày 5/6/1910", "Ngày 6/5/1911", "Ngày 5/6/1911", "Ngày 19/5/1911"],
+            dapanDung: "Ngày 5/6/1911",
+        },
+        {
+            cauhoi: "Khi xuống con tàu Latuso Torevin đi tìm đường cứu nước, Bác Hồ lấy tên gọi là?",
+            dapan: ["Nguyễn Sinh Cung", "Nguyễn Tất Thành", "Nguyễn Ái Quốc", "Văn Ba"],
+            dapanDung: "Văn Ba",
+        },
+        {
+            cauhoi: "Hoàn thành câu nói nổi tiếng của Chủ tịch HCM: “Non sông VN có trở nên tươi đẹp hay không, dân tộc VN có bước tới đài vinh quang để sánh vai với các cường quốc năm châu được hay không, chính là nhờ …”?",
+            dapan: ["Một công lớn học tập của các em", "Một phần lớn ở công học tập của các em", "Một phần lớn công học tập các em", "Một phần công lớn học tập của các em"],
+            dapanDung: "Một phần lớn ở công học tập của các em",
+        },
+        {
+            cauhoi: "Nguyễn Ái Quốc đọc “Sơ thảo lần thứ nhất Luận cương về những vấn đề dân tộc và vấn đề thuộc địa” của Lênin khi nào? Ở đâu??",
+            dapan: ["7/1920 – Liên Xô", "7/1920 – Pháp", "7/1920 – Trung Quốc", "7/1920 – Anh"],
+            dapanDung: "7/1920 – Pháp",
+        },
+        {
+            cauhoi: "Khi giải thích về con đường đến với Chủ nghĩa Mác – Lênin, Chủ tịch HCM viết:“Lúc đầu, chính là … chứ chưa phải chủ nghĩa cộng sản đã đưa tôi tin theo Lênin,tin theo Quốc tế thứ ba”?",
+            dapan: ["Chủ nghĩa Mác", "Lòng yêu nước", "Chủ nghĩa dân tộc", "Chủ nghĩa yêu nước"],
+            dapanDung: "Chủ nghĩa yêu nước",
+        },
+        {
+            cauhoi: "Sau 30 năm tìm đường cứu nước, Lãnh tụ Nguyễn Ái Quốc đã trở về Tổ quốc vào ngày?",
+            dapan: ["Ngày 28/01/1941", "Ngày 08/02/1943", "Ngày 28/01/1942", "Ngày 08/02/1944"],
+            dapanDung: "Ngày 28/01/1941",
+        },
+        {
+            cauhoi: "Hoàn thành luận điểm nổi tiếng của Chủ tịch HCM: “Nếu nước được … mà dân không hưởng hạnh phúc tự do, thì … cũng chẳng có nghĩa lý gì”?",
+            dapan: ["Độc lập", "Tự do", "Giải phóng", "Hoà bình"],
+            dapanDung: "Độc lập",
+        },
+        {
+            cauhoi: "Theo HCM, độc lập, tự do là?",
+            dapan: ["Tạo hoá ban cho con người", "Trách nhiệm của các nước lớn phải đảm bảo cho các nước nhỏ", "Mong muốn của các dân tộc", "Quyền thiêng liêng, bất khả xâm phạm của tất cả các dân tộc"],
+            dapanDung: "Quyền thiêng liêng, bất khả xâm phạm của tất cả các dân tộc",
+        },
+        {
+            cauhoi: "Chủ tịch HCM đã từng dạy học ở ngôi trường nào?",
+            dapan: ["Trường Tiểu học Vinh", "Trường Pháp Việt Đông Ba (Huế)", "Trường Quốc học Huế", "Trường Dục Thanh (Phan Thiết)"],
+            dapanDung: "Trường Dục Thanh (Phan Thiết)",
+        },
+        {
+            cauhoi: "Theo HCM, cách mạng giải phóng dân tộc muốn thắng lợi phải?",
+            dapan: ["Đi theo con đường của các bậc tiền bối", "Đi theo con đường của cách mạng Pháp", "Đi theo con đường cách mạng vô sản", "Đi theo con đường Cách mạng Mỹ"],
+            dapanDung: "Đi theo con đường cách mạng vô sản",
+        },
+        {
+            cauhoi: "Cách mạng giải phóng dân tộc muốn thắng lợi phải?",
+            dapan: ["Có nhiều người giỏi", "Có Đảng của giai cấp công nhân lãnh đạo", "Có một cá nhân xuất sắc lãnh đạo", "Tất cả đều đúng"],
+            dapanDung: "Có Đảng của giai cấp công nhân lãnh đạo",
+        },
+        {
+            cauhoi: "Cách mạng giải phóng dân tộc là sự nghiệp đoàn kết của?",
+            dapan: ["Giai cấp công nhân", "Giai cấp công nhân và nông dân", "Toàn dân, trên cơ sở liên minh công – nông", "Các dân tộc thuộc địa"],
+            dapanDung: "Toàn dân, trên cơ sở liên minh công – nông",
+        },
+        {
+            cauhoi: "Cách mạng giải phóng dân tộc muốn giành được thắng lợi cần phải?",
+            dapan: ["Tiến hành chủ động và sáng tạo", "Dựa vào sự thắng lợi ở các nước thuộc địa khác", "Dựa vào thắng lợi ở chính quốc", "Dựa vào sự giúp đỡ của các nước"],
+            dapanDung: "Tiến hành chủ động và sáng tạo",
+        },
+        {
+            cauhoi: "Cách mạng giải phóng dân tộc muốn giành được thắng lợi phải?",
+            dapan: ["Ám sát những tên ác ôn", "Sử dụng bạo lực cách mạng", "Tiến hành đấu tranh nghị trường", "Thực hiện đấu tranh ôn hoà"],
+            dapanDung: "Sử dụng bạo lực cách mạng",
+        },
+        {
+            cauhoi: "Bạo lực cách mạng theo tư tưởng HCM là?",
+            dapan: ["Đấu tranh chính trị", "Đấu tranh vũ trang", "Kết hợp đấu tranh chính trị với đấu tranh vũ trang", "Bạo động ám sát cá nhân"],
+            dapanDung: "Kết hợp đấu tranh chính trị với đấu tranh vũ trang",
+        },
+        {
+            cauhoi: "Trong lúc này, thời cơ thuận lợi đã tới. Dù hy sinh tới đâu, dù phải đốt cháy cả dãy Trường Sơn cũng phải kiên quyết giành cho được độc lập”. HCM đã chỉ thị điều đó cho đồng chí nào?",
+            dapan: ["Võ Nguyên Giáp", "Trường Chinh", "Phạm Văn Đồng", "Vũ Kỳ"],
+            dapanDung: "Võ Nguyên Giáp",
+        },
+        {
+            cauhoi: "Năm 1944, HCM đã ra chỉ thị thành lập Đội?",
+            dapan: ["Việt Nam Tuyên truyền Giải phóng quân", "Việt Nam Giải phóng quân", "Giải phóng quân Việt Nam", "Việt Nam cứu quốc quân"],
+            dapanDung: "Việt Nam Tuyên truyền Giải phóng quân",
+        },
+        {
+            cauhoi: "Bản Yêu sách của nhân dân An Nam được Nguyễn Ái Quốc gửi tới Hội nghị Vecxay vào thời gian nào?",
+            dapan: ["Ngày 18/06/1917", "Ngày 18/06/1919", "Ngày 18/06/1920", "Ngày 18/06/1921"],
+            dapanDung: "Ngày 18/06/1919",
+        },
+        {
+            cauhoi: "HCM đã dùng hình tượng nào để nói về chủ nghĩa đế quốc?",
+            dapan: ["Con đỉa hai vòi", "Con bạch tuộc", "Con chim đại bàng", "Con rắn độc"],
+            dapanDung: "Con đỉa hai vòi",
+        },
+        {
+            cauhoi: "Năm 1946, trả lời phỏng vấn báo chí, Chủ tịch HCM đã khẳng định ham muốn tột bậc của Người là?",
+            dapan: ["Nước ta được hoàn toàn độc lập", "Dân ta được hoàn toàn tự do", "Đồng bào ai cũng có cơm ăn, áo mặc, ai cũng được học hành", "Tất cả đáp án"],
+            dapanDung: "Tất cả đáp án",
+        },
+        {
+            cauhoi: "“Đồng bào Nam Bộ là dân nước VN. Sông có thể cạn, núi có thể mòn, song chân lý đó không bao giờ thay đổi”. Luận điểm trên được Chủ tịch HCM đề cập đến trong tác phẩm?",
+            dapan: ["Thư gửi Uỷ ban nhân dân các Kỳ, tỉnh, huyện, và làng 1945", "Thư gửi đồng bào Nam Bộ 1946", "Sửa đổi lối làm việc 1947", "Di chúc 1969"],
+            dapanDung: "Thư gửi Đồng bào Nam Bộ 1946",
+        },
+        {
+            cauhoi: "Điền từ còn thiếu vào chỗ trống theo tư tưởng HCM: “Cách mệnh trước hết phải có đảng cách mệnh, để trong thì … dân chúng, ngoài thì liên lạc với các dân tộc bị áp bức và vô sản giai cấp mọi nơi”?",
+            dapan: ["Tập hợp và lãnh đạo", "Vận động và tổ chức", "Tập hợp và giác ngộ", "Tổ chức và lãnh đạo"],
+            dapanDung: "Vận động và tổ chức",
+        },
+        {
+            cauhoi: "Năm 1923, một nhà thơ Liên Xô khi gặp Bác Hồ đã viết: “Từ … toả ra một nền văn hoá, không phải là văn hoá Châu Âu, mà có lẽ là một nền văn hoá của tương lai”.Nhà thơ gọi Bác Hồ khi ấy là?",
+            dapan: ["Văn Ba", "Nguyễn Tất Thành", "Nguyễn Ái Quốc", "Hồ Chí Minh"],
+            dapanDung: "Nguyễn Ái Quốc",
+        },
+        {
+            cauhoi: "Theo tư tưởng HCM:?",
+            dapan: ["Cách mạng giải phóng dân tộc phụ thuộc hoàn toàn vào CMVS ở chính quốc", "CMGPDT cùng diễn ra và giành thắng lợi đồng thời với CMVS ở chính quốc", "CMGPDT có khả năng nổ ra và giành thắng lợi trước CMVS ở chính quốc", "CMGPDT cần được tiến hành chủ động, sáng tạo và có khả năng thắng lợi trước CMVS ở chính quốc"],
+            dapanDung: "CMGPDT cần được tiến hành chủ động, sáng tạo và có khả năng thắng lợi trước CMVS ở chính quốc",
+        },
+        {
+            cauhoi: "Theo HCM: “Công cuộc giải phóng anh em chỉ có thể thực hiện bằng sự nỗ lực của…”?",
+            dapan: ["Giai cấp công nhân", "Nhân dân lao động", "Bản thân anh em", "Cả dân tộc"],
+            dapanDung: "Bản thân anh em",
+        },
+        {
+            cauhoi: "Luận điểm nổi tiếng: “Không có gì quý hơn độc lập, tự do” được HCM nói trong?",
+            dapan: ["Đường kách mệnh 1927", "Tuyên ngôn độc lập 1945", "Lời kêu gọi toàn quốc kháng chiến 1946", "Lời kêu gọi đồng bào, chiến sĩ cả nước 1966"],
+            dapanDung: "Lời kêu gọi đồng bào, chiến sĩ cả nước 1966",
+        },
+        {
+            cauhoi: "Năm 1951, HCM chỉ rõ mục đích của Đảng Lao động VN có thể gồm trong 8 chữ là?",
+            dapan: ["Thực hiện đại đoàn kết toàn dân tộc", "Đoàn kết toàn dân, xây dựng đất nước", "Đoàn kết toàn dân, phụng sự Tổ quốc", "Hoà bình, độc lập, thống nhất, giàu mạnh"],
+            dapanDung: "Đoàn kết toàn dân, phụng sự Tổ quốc",
+        },
+        {
+            cauhoi: "Đảng có vững cách mạng mới thành công, cũng như người cầm lái có vững thuyền mới chạy”. Đó là khẳng định của HCM trong tác phẩm?",
+            dapan: ["Đường kách mệnh 1927", "Tuyên ngôn độc lập 1945", "Lời kêu gọi toàn quốc kháng chiến 1946", "Lời kêu gọi đồng bào, chiến sĩ cả nước 1966"],
+            dapanDung: "Đường kách mệnh 1927",
+        },
+        {
+            cauhoi: "Trước khi rời bến cảng Nhà Rồng, Nguyễn Tất Thành đã nói với bạn của mình:“Tôi muốn đi ra nước ngoài, xem nước Pháp và các nước khác. Sau khi xem xét họ làm thế nào, tôi sẽ …”. Điền từ còn thiếu?",
+            dapan: ["Truyền đạt lại cho đồng bào chúng ta", "Trở về giúp đồng bào chúng ta", "Lên kế hoạch giúp đồng bào chúng ta", "Chiến đấu chống lại kẻ thù chúng ta"],
+            dapanDung: "Trở về giúp đồng bào chúng ta",
+        },
+        {
+            cauhoi: "Trong cuộc họp Hội đồng Chính phủ ngày 29/12/1966, Chủ tịch HCM nêu lên luận điểm: “Không sợ … chỉ sợ không công bằng; Không sợ … chỉ sợ lòng dân không yên”. Điền từ còn thiếu?",
+            dapan: ["Đói … nghèo", "Thiếu … nhiều", "Thiếu … nghèo", "Yếu … thừa"],
+            dapanDung: "Thiếu … nghèo",
+        },
+        {
+            cauhoi: "Theo HCM, muốn xây dựng chủ nghĩa xã hội thì trước hết cần có?",
+            dapan: ["Khoa học kỹ thuật hiện đại", "Lực lượng sản xuất phát triển", "Cơ sở vật chất kĩ thuật", "Những con người xã hội chủ nghĩa"],
+            dapanDung: "Những con người xã hội chủ nghĩa",
+        },
+        {
+            cauhoi: "Theo Tư tưởng HCM, động lực chủ yếu của sự phát triển đất nước là?",
+            dapan: ["Con người cá nhân", "Đại đoàn kết dân tộc", "Sự giúp đỡ của nước ngoài", "Đoàn kết quốc tế"],
+            dapanDung: "Đại đoàn kết dân tộc",
+        },
+        {
+            cauhoi: "HCM đã chỉ ra các lực cản đi lên chủ nghĩa xã hội, đó là: Chủ nghĩa thực dân, thói quen truyền thống lạc hậu và …?",
+            dapan: ["Giặc đói.", "Giặt dốt", "Giặc ngoại xâm", "Chủ nghĩa cá nhân"],
+            dapanDung: "Chủ nghĩa cá nhân",
+        },
+        {
+            cauhoi: "Theo tư tưởng HCM, chế độ chính trị mà chúng ta xây dựng là chế độ?",
+            dapan: ["Do giai cấp công nhân làm chủ", "Do giai cấp nông dân làm chủ", "Do nhân dân lao động làm chủ", "Do Đảng Cộng sản làm chủ"],
+            dapanDung: "Do nhân dân lao động làm chủ",
+        },
+        {
+            cauhoi: "Theo HCM, nền kinh tế mà chúng ta xây dựng phải được tạo lập trên cơ sở?",
+            dapan: ["Nền nông nghiệp hiện đại", "Nền công nghiệp hiện đại", "Khoa học kĩ thuật tiên tiến", "Tất cả đáp án"],
+            dapanDung: "Tất cả đáp án",
+        },
+        {
+            cauhoi: "Theo HCM, động lực quan trọng và bao trùm nhất của CNXH là?",
+            dapan: ["Vốn", "Tài nguyên thiên nhiên", "Con người", "Khoa học kĩ thuật"],
+            dapanDung: "Con người",
+        },
+        {
+            cauhoi: "“Các vua Hùng đã có công dựng nước, Bác cháu ta phải cũng nhau giữ lấy nước”.Câu nói nổi tiếng trên được Chủ tịch HCM nói vào ngày, tháng, năm nào?",
+            dapan: ["Ngày 02/9/1945", "Ngày 03/9/1945", "Ngày 19/5/1954", "Ngày 19/9/1954"],
+            dapanDung: "Ngày 19/9/1954",
+        },
+        {
+            cauhoi: "Muốn phát huy động lực của CNXH, theo HCM cần phải chống?",
+            dapan: ["Chủ nghĩa cá nhân, tham ô, lãng phí, quan liêu", "Chia rẽ, bè phái, mất đoàn kết, vô kỷ luật, chủ quan, bảo thủ, giáo điều, lười biếng", "Chủ nghĩa đế quốc thực dân", "Tất cả"],
+            dapanDung: "Tất cả",
+        },
+        {
+            cauhoi: "Kế thừa quan điểm của chủ nghĩa Mác-lenin, có mấy con đường quá độ lên CNXH?",
+            dapan: ["2 con đường", "3 con đường", "4 con đường", "5 con đường"],
+            dapanDung: "2 con đường",
+        },
+        {
+            cauhoi: "Theo Hồ Chí Minh, đặc điểm cơ bản nhất của nước ta trong thời kì quá độ là?",
+            dapan: ["Từ một nước nông nghiệp lạc hậu tiến thẳng lên chủ nghĩa xã hội không trải qua giai đoạn phát triển tư bản chủ nghĩa", "Bị chiến tranh tàn phá nặng nề", "Từ một nước thuộc địa nửa phong kiến", "Tất cả đều đúng"],
+            dapanDung: "Từ một nước nông nghiệp lạc hậu tiến thẳng lên chủ nghĩa xã hội không trải qua giai đoạn phát triển tư bản chủ nghĩa",
+        },
+        {
+            cauhoi: "Chủ tịch HCM về thăm HP lần đầu tiên khi nào?",
+            dapan: ["20/10/1941", "20/10/1944", "20/10/1945", "20/10/1946"],
+            dapanDung: "20/10/1946",
+        },
+        {
+            cauhoi: "Nội dung nào sau đây được coi là vấn đề “cốt tử” trong xây dựng Đảng?",
+            dapan: ["Xây dựng và thực hiện nghị quyết", "Xây dựng và phát triển hệ Đảng viên.", "Củng cố lập trường chính trị", "Xây dựng đường lối chính trị"],
+            dapanDung: "Xây dựng đường lối chính trị",
+        },
+        {
+            cauhoi: "Theo HCM khi thực hiện bước đi trong TKQĐ, chúng ta phải thực hiện phương châm:?",
+            dapan: ["Tuần tự, dần dần, từ thấp đến cao", "Tiến nhanh, mạnh, vững chắc lên chủ nghĩa xã hội", "Tránh tư tưởng chủ quan, nóng vội, phù hợp với thực tiễn, hợp lòng dân", "Tất cả đáp án"],
+            dapanDung: "Tất cả đáp án",
+        },
+        {
+            cauhoi: "Theo HCM, về bước đi trong thời kì quá độ, chúng ta phải?",
+            dapan: ["Đi theo bước đi của các nước xã hội chủ nghĩa", "Căn cứ vào đặc điểm lịch sử cụ thể của nước ta, từ đó có bước đi phù hợp", "Căn cứ vào đặc điểm lịch sử cụ thể của nước ta, từ đó có bước đi phù hợp, đi bước nào vững chắc bước ấy", "Đi theo các nước tư bản"],
+            dapanDung: "Căn cứ vào đặc điểm lịch sử cụ thể của nước ta, từ đó có bước đi phù hợp, đi bước nào vững chắc bước ấy",
+        },
+        {
+            cauhoi: "Theo HCM, ĐCSVN là sản phẩm của sự kết hợp giữa?",
+            dapan: ["Chủ nghĩa Mác – Lênin với phong trào công nhân", "Chủ nghĩa Mác – Lênin với phong trào nông dân", "Chủ nghĩa Mác – Lênin với phong trào yêu nước", "Chủ nghĩa Mác – Lênin với phong trào công nhân và phong trào yêu nước"],
+            dapanDung: "Chủ nghĩa Mác – Lênin với phong trào công nhân và phong trào yêu nước",
+        },
+        {
+            cauhoi: "Tác phẩm nào sau đây không phải của HCM?",
+            dapan: ["Kháng chiến nhất định thắng lợi", "Bản án chế độ thực dân Pháp", "Đường kách mệnh", "Đời sống mới"],
+            dapanDung: "Kháng chiến nhất định thắng lợi",
+        },
+        {
+            cauhoi: "ĐCSVN là Đảng của giai cấp công nhân, của nhân dân lao động và của toàn dân tộc.Điều này khẳng định?",
+            dapan: ["Vai trò của Đảng", "Lợi ích của Đảng", "Lý tưởng của Đảng", "Bản chất của Đảng"],
+            dapanDung: "Bản chất của Đảng",
+        },
+        {
+            cauhoi: "Nguyên tắc xây dựng Đảng này được HCM coi như là một “thang thuốc” để chữa các “bệnh” trong Đảng. Đó là nguyên tắc?",
+            dapan: ["Tập trung dân chủ", "Kỷ luật nghiêm minh tự giác", "Tự phê bình và phê bình", "Đoàn kết thống nhất trong Đảng"],
+            dapanDung: "Tự phê bình và phê bình",
+        },
+        {
+            cauhoi: "Theo tư tưởng HCM, luận điểm ĐCS là nhân tố quyết định hàng đầu để đưa cách mạng VN đi đến thắng lợi là xác định?",
+            dapan: ["Quyền lãnh đạo của Đảng", "Vai trò lãnh đạo của Đảng", "Nhiệm vụ của Đảng", "Mục đích của Đảng"],
+            dapanDung: "Vai trò lãnh đạo của Đảng",
+        },
+        {
+            cauhoi: "Trong thư gửi các cán bộ, thầy cô giáo và học sinh nhân dịp năm học mới, Chủ tịch HCM viết: “Dù khó khăn đến đâu cũng phải tiếp tục thi đua dạy tốt và học tốt”.Năm đó là?",
+            dapan: ["1945", "1950", "1968", "1969"],
+            dapanDung: "1968",
+        },
+        {
+            cauhoi: "Khi xác định lực lượng của khối đại đoàn kết dân tộc, Chủ tịch HCM chỉ rõ: “Ta đoàn kết để đấu tranh cho thống nhất và độc lập của Tổ quốc, Ta còn phải đoàn kết để xây dựng nước nhà. Ai có tài, có đức, có sức, có … thì ta đoàn kết với họ”. Hoàn thành phần còn thiếu?",
+            dapan: ["Lòng phụng sự Tổ quốc và phục vụ nhân dân", "Đạo đức trong sáng", "Ý chí cách mạng", "Lòng yêu nước"],
+            dapanDung: "Lòng phụng sự Tổ quốc và phục vụ nhân dân",
+        },
+        {
+            cauhoi: "Trong tư tưởng HCM, đại đoàn kết dân tộc?",
+            dapan: ["Là vấn đề cơ bản nhất", "Là vấn đề sống còn của cách mạng", "Là vấn đề có ý nghĩa chiến lược, quyết định thành công của cách mạng", "Là vấn đề số một của cách mạng"],
+            dapanDung: "Là vấn đề có ý nghĩa chiến lược, quyết định thành công của cách mạng",
+        },
+        {
+            cauhoi: "Trong tư tưởng HCM, đại đoàn kết dân tộc?",
+            dapan: ["Là mục tiêu của cách mạng", "Là nhiệm vụ hàng đầu của cách mạng", "Là vấn đề số một của cách mạng", "Là mục tiêu, nhiệm vụ hàng đầu của Đảng, của dân tộc"],
+            dapanDung: "Là mục tiêu, nhiệm vụ hàng đầu của Đảng, của dân tộc",
+        },
+        {
+            cauhoi: "HCM nhấn mạnh: “Điểm này mà thực hiện tốt thì đẻ ra con cháu đều tốt”. Điểm đó là?",
+            dapan: ["Đại đoàn kết toàn dân tộc", "Lòng yêu nước nồng nàn", "Tinh thần chiến đấu anh dũng", "Sự giúp đỡ của bè bạn thế giới"],
+            dapanDung: "Đại đoàn kết toàn dân tộc",
+        },
+        {
+            cauhoi: "Trong tư tưởng HCM, nền tảng của khối đại đoàn kết dân tộc là?",
+            dapan: ["Liên minh công – nông", "Liên minh công – nông, lao động trí óc", "Liên minh công – nông và tư sản", "Liên minh công – nông và địa chủ"],
+            dapanDung: "Liên minh công – nông, lao động trí óc",
+        },
+        {
+            cauhoi: "Trong Tuyên ngôn độc lập, HCM đã khẳng định quyết tâm của nhân dân ta: “Toàn thể dân tộc VN quyết đem … để giữ vững quyền tự do, độc lập ấy”. Điền vào chỗ trống?",
+            dapan: ["Toàn bộ sức lực", "Tất cả tinh thần và lực lượng", "Tính mạng và của cải", "Tất cả tinh thần và lực lượng, tính mạng và của cải"],
+            dapanDung: "Tất cả tinh thần và lực lượng, tính mạng và của cải",
+        },
+        {
+            cauhoi: "Theo tư tưởng HCM, ĐCSVN vừa là người lãnh đạo, vừa là người … của dân. Từ còn thiếu là?",
+            dapan: ["Giúp việc", "Chỉ huy", "Đầy tớ", "Bảo vệ"],
+            dapanDung: "Đầy tớ",
+        },
+        {
+            cauhoi: "“Dân vận khéo, việc gì cũng thành công”. Luận điểm trên được HCM đề cập đến trong tác phẩm?",
+            dapan: ["Dân vận", "Sửa đổi lối làm việc", "Đạo đức cách mạng", "Di chúc"],
+            dapanDung: "Dân vận",
+        },
+        {
+            cauhoi: "Chủ tịch HCM nhấn mạnh: “Đảng ta là một Đảng cầm quyền. Mỗi đảng viên và cán bộ phải thật sự thấm nhuần đạo đức cách mạng, thật sự cần kiệm liên chính, chí công vô tư”. Luận điểm trên được HCM đề cập đến trong tác phẩm nào?",
+            dapan: ["Đường kách mệnh 1927", "Đời sống mới 1947", "Đạo đức cách mạng 1958", "Di chúc 1969"],
+            dapanDung: "Di chúc 1969",
+        },
+        {
+            cauhoi: "Điền từ vào chỗ trống theo tư tưởng HCM về chính sách ngoại giao của VN sau khi tuyên bố độc lập: “Làm bạn với tất cả … và không gây thù oán với một ai”?",
+            dapan: ["Các dân tộc", "Các nước xã hội chủ nghĩa", "Mọi nước dân chủ", "Các quốc gia khác"],
+            dapanDung: "Mọi nước dân chủ",
+        },
+        {
+            cauhoi: "Khi nói về tinh thần đoàn kết quốc tế, HCM đã viết: “Quan sơn muôn dặm một nhà,… đều là anh em”. Điền từ vào chỗ trống?",
+            dapan: ["Lao động thế giới", "Bốn phương vô sản", "Vàng đen trắng đỏ", "Nhân dân thế giới"],
+            dapanDung: "Bốn phương vô sản",
+        },
+        {
+            cauhoi: "Chọn phương án đúng nhất điền vào chỗ trống để hoàn thiện câu nói của chủ tịch HCM: “Thi đua là yêu nước, yêu nước là thi đua. Và những người thi đua là những người …”?",
+            dapan: ["Giỏi nhất", "Hăng hái nhất", "Yêu nước nhất", "Cách mạng nhất."],
+            dapanDung: "Yêu nước nhất",
+        },
+        {
+            cauhoi: "Trong phiên họp đầu tiên của Chính phủ lâm thời nước VN Dân chủ CH, Chủ tịch HCM đã nêu ra 6 nhiệm vụ cấp bách cần phải giải quyết. Phiên họp đó diễn ra vào?",
+            dapan: ["Ngày 02/9/1945", "Ngày 03/9/1945", "Ngày 04/9/1945", "Ngày 05/9/1945"],
+            dapanDung: "Ngày 03/9/1945",
+        },
+        {
+            cauhoi: "Theo HCM. “Nước ta là nước dân chủ, nghĩa là …”",
+            dapan: ["Nước nhà do nhân dân làm chủ", "Dân điều hành đất nước", "Dân có mọi quyền hành", "Dân quyết định mọi vấn đề của đất nước"],
+            dapanDung: "Nước nhà do nhân dân làm chủ",
+        },
+        {
+            cauhoi: "Nhà nước của dân theo tư tưởng HCM nghĩa là?",
+            dapan: ["Mọi quyền lực trong nhà nước và trong xã hội đều thuộc về nhân dân", "Mọi công việc của nhà nước do dân quyết định", "Đại biểu của nhà nước do dân bầu ra", "Tất cả đều đúng"],
+            dapanDung: "Mọi quyền lực trong nhà nước và trong xã hội đều thuộc về nhân dân",
+        },
+        {
+            cauhoi: "Nhà nước do dân theo tư tưởng HCM?",
+            dapan: ["Đại biểu của nhà nước do dân lựa chọn", "Dân ủng hộ, giúp đỡ, đóng thuế để nhà nước chi tiêu, hoạt động", "Dân có quyền kiểm soát, giám sát, bãi miễn nếu đại biểu không làm tròn sự uỷ thác của dân", "Tất cả đều đúng"],
+            dapanDung: "Tất cả đều đúng",
+        },
+        {
+            cauhoi: "Nhà nước vì dân theo tư tưởng HCM là?",
+            dapan: ["Phục vụ vì lợi ích và nguyện vọng chính đáng của nhân dân", "Mọi chủ trương, chính sách, pháp luật đều xuất phát từ lợi ích của dân", "Nhà nước trong sạch, không có bất cứ một đặc quyền, đặc lợi nào", "Tất cả dều đúng"],
+            dapanDung: "Tất cả dều đúng",
+        },
+        {
+            cauhoi: "Một nhà nước pháp quyền có hiệu lực pháp lý mạnh mẽ theo tư tưởng HCM là?",
+            dapan: ["Nhà nước hợp hiến, hợp pháp", "Nhà nước thượng tôn pháp luật", "Nhà nước pháp quyền nhân nghĩa", "Tất cả đều đúng"],
+            dapanDung: "Tất cả đều đúng",
+        },
+        {
+            cauhoi: "“Không có việc gì khó/ Chỉ sợ lòng không bền/ Đào núi và lấp biển/ Quyết chí ắt làm nên”. Câu thơ nổi tiếng trên được HCM nói lần đầu vào?",
+            dapan: ["Năm 1945", "Năm 1946", "Năm 1950", "Năm 1969"],
+            dapanDung: "Năm 1950",
+        },
+        {
+            cauhoi: "Bàn về vai trò của Sức mạnh và Thể dục, Chủ tịch HCM viết: “Giữ gìn dân chủ, xây dựng nước nhà, gây đời sống mới, việc gì cũng cần có sức khoẻ mới làm thành công. Mỗi một người dân yếu ớt, tức là cả nước yếu ớt, mỗi một người dân khoẻ mạnh tức là cả nước khoẻ mạnh … Dân cường thì quốc thịnh”. Luận điểm này được đăng trên?",
+            dapan: ["Báo Cứu quốc, ngày 27/3/1946", "Báo Sự thật, ngày 27/3/1948", "Báo Nhân dân, ngày 27/3/1954", "Báo Thanh niên, ngày 27/3/1969"],
+            dapanDung: "Báo Cứu quốc, ngày 27/3/1946",
+        },
+        {
+            cauhoi: "Trong tư tưởng HCM, đạo đức có vai trò?",
+            dapan: ["Là nền tảng lý luận của người cách mạng", "Là gốc của người cách mạng, là nền tảng tinh thần của xã hội", "Là định hướng lý tưởng của người cách mạng", "Là tư tưởng của người cách mạng"],
+            dapanDung: "Là gốc của người cách mạng, là nền tảng tinh thần của xã hội",
+        },
+        {
+            cauhoi: "Theo HCM, muốn xây dựng đạo đức phải thực hiện nguyên tắc?",
+            dapan: ["Nói đi đôi với làm", "Xây đi đôi với chống", "Tu dưỡng đạo đức suốt đời", "Tất cả đều đúng"],
+            dapanDung: "Tất cả đều đúng",
+        },
+        {
+            cauhoi: "Điền vào phần còn thiếu theo quan điểm HCM: “Trời có bốn mùa Xuân, Hạ, Thu, Đông. Đất có bốn phương Đông, Tây, Nam, Bắc. Người có …”?",
+            dapan: ["Bốn đức Cần, Kiệm, Liêm, Chính", "Tinh thần quốc tế trong sáng", "Phẩm chất trung với nước, hiếu với dân", "Yêu thương con người, sống có tình nghĩa"],
+            dapanDung: "Bốn đức Cần, Kiệm, Liêm, Chính",
+        },
+        {
+            cauhoi: "Hoàn thành luận điểm của HCM: “Trong bầu trời không có gì quý bằng … Trong thế giới không gì mạnh bằng lực lượng đoàn kết của …”?",
+            dapan: ["Bạn bè", "Nhân dân", "Tình cảm", "Con người"],
+            dapanDung: "Nhân dân",
+        },
+        {
+            cauhoi: "Trong Bài nói tại lớp bồi dưỡng cán bộ lãnh đạo cấp huyện ngày 18/1/1967, HCM khẳng định: “Dễ mười lần không dân cũng … khó trăm lần dân liệu cũng xong”.Từ còn thiếu là?",
+            dapan: ["Mệt", "Khổ", "Chịu", "Bỏ"],
+            dapanDung: "Chịu",
+        },
+        {
+            cauhoi: "Trong thư gửi các hoạ sĩ nhân triển lãm hội hoạ 1951, Chủ tịch HCM khẳng định:“Văn hoá nghệ thuật cũng là một mặt trận. Anh chị em là chiến sĩ trên mặt trận ấy”. Quan điểm trên của HCM muốn đề cập đến?",
+            dapan: ["Vai trò của văn hoá nghệ thuật", "Đặc điểm của nghệ sĩ", "Vai trò của nhà nước", "Tất cả đều đúng"],
+            dapanDung: "Vai trò của văn hoá nghệ thuật",
+        },
+        {
+            cauhoi: "Ngày 28/11/1959, Chủ tịch HCM viết trên báo Nhân dân và phát động?",
+            dapan: ["Tết thiếu nhi", "Tết trồng cây", "Tết Đoan ngọ", "Tất cả đáp án"],
+            dapanDung: "Tết trồng cây",
+        },
+        {
+            cauhoi: "Năm 1923, tạp chí Ogoniok (Ngọn lửa nhỏ) số 39 đã đăng bài về NAQ, trong đó viết:“Từ NAQ toả ra một nền văn hoá, không phải là văn hoá Châu Âu mà có lẽ là văn hoá của tương lai”. Tác giả của nhận xét đó là?",
+            dapan: ["Nhà văn Sơn Tùng", "Nhà nghiên cứu Épghenhi Cabelep", "Nhà thơ Xô viết Ôxip Mandenxtam", "V.I.Lênin"],
+            dapanDung: "Nhà thơ Xô viết Ôxip Mandenxtam",
+        },
+        {
+            cauhoi: "Trong thư gửi thanh niên và nhi đồng toàn quốc nhân dịp Tết sắp đến, Chủ tịch HCM viết: “Một năm … từ mùa xuân. Một đời … từ tuổi trẻ. Tuổi trẻ là mùa xuân của xã hội”. từ còn thiếu là?",
+            dapan: ["Bắt đầu", "Khởi đầu", "Bước đầu", "Mở đầu"],
+            dapanDung: "Khởi đầu",
+        },
+        {
+            cauhoi: "Theo HCM: “Sức có mạnh mới gánh được nặng và đi được xa. Người cách mạng phải có … làm nền tảng mới hoàn thành được nhiệm vụ cách mạng vẻ vang”?",
+            dapan: ["Sức khoẻ", "Tài năng", "Tài năng và đức độ", "Đạo đức cách mạng"],
+            dapanDung: "Đạo đức cách mạng",
+        },
+        {
+            cauhoi: "Theo HCM: “Văn hoá phải soi đường cho … đi”?",
+            dapan: ["Dân tộc", "Toàn dân", "Quốc dân", "Mọi người"],
+            dapanDung: "Quốc dân",
+        },
+        {
+            cauhoi: "Chủ tịch HCM đã dạy: “Học để làm việc, …, làm cán bộ”. Từ còn thiếu là?",
+            dapan: ["Làm cách mạng", "Phục vụ nhân dân", "Có tri thức", "Làm người"],
+            dapanDung: "Làm người",
+        },
+        {
+            cauhoi: "Khi nói về sự tu dưỡng đạo đức cách mạng, Chủ tịch HCM đưa ra hình ảnh: “Ngọc càng mài càng …, vàng càng luyện càng …”. Từ còn thiếu là?",
+            dapan: ["Tốt … bền", "Sáng … trong", "Đắt … cao", "Quý … bền"],
+            dapanDung: "Sáng … trong",
+        },
+        {
+            cauhoi: "Chỉ thị 05-CT/TW về “Đẩy mạnh học tập và làm theo tư tưởng, đạo đức,phong cách HCM” được Bộ Chính trị ban hành vào ngày?",
+            dapan: ["Ngày 15/5/2016", "Ngày 19/5/2016", "Ngày 19/5/2017", "Ngày 02/9/2018"],
+            dapanDung: "Ngày 15/5/2016",
+        },
+
+    ];
+    // Biến để lưu trữ HTML gốc của quiz-container trước khi hiện đáp án
+let QUIZ_HTML_GOC = ''; 
+
+function hienThiBatchDapAn(start_index = 0) {
+    const container = document.getElementById('quiz-container');
+    const nutHien = document.querySelector('button[onclick="hienTatCaDapAn()"]');
+    const nutAn = document.querySelector('button[onclick="anTatCaDapAn()"]');
+    
+    const tongSoCau = CAU_HOI_TRAC_NGHIEM.length;
+    
+    // Đặt lại index bắt đầu
+    XEM_DAP_AN_INDEX = start_index; 
+    
+    const endIndex = Math.min(XEM_DAP_AN_INDEX + CAU_MOI_LAN, tongSoCau);
+    
+    let htmlContent = '';
+
+    // Hiển thị 5 câu đáp án trong batch hiện tại
+    for (let index = XEM_DAP_AN_INDEX; index < endIndex; index++) {
+        const cau = CAU_HOI_TRAC_NGHIEM[index];
+        const dapanDung = cau.dapanDung;
+        
+        // Thêm ID giúp dễ dàng cuộn tới câu đầu tiên nếu cần
+        const isFirstQuestion = index === XEM_DAP_AN_INDEX;
+        htmlContent += `<div class="question" id="${isFirstQuestion ? 'first-answer-in-batch' : ''}">`; 
+        htmlContent += `<p><strong>Câu ${index + 1}:</strong> ${cau.cauhoi}</p>`;
+        
+        cau.dapan.forEach((dapAn, dIndex) => {
+            const isCorrect = dapAn === dapanDung;
+            const style = isCorrect ? 'color: #0f5132; font-weight: bold; background-color: #d1e7dd; padding: 5px; border-radius: 4px;' : 'color: #555; padding: 5px;';
+            const icon = isCorrect ? '✅ ' : ' ';
+
+            htmlContent += `<p style="${style}">${icon}${dapAn}</p>`;
+        });
+        
+        htmlContent += `<div class="feedback correct-answer">Đáp án đúng: **${dapanDung}**</div>`;
+        htmlContent += `</div>`;
+    }
+
+    // Thêm nút Xem Tiếp nếu còn câu hỏi
+    if (endIndex < tongSoCau) {
+        // GỌI HÀM VỚI INDEX MỚI
+        htmlContent += `
+            <button onclick="hienThiBatchDapAn(${endIndex})" 
+                    style="margin-top: 20px; background-color: #3498db; box-shadow: 0 3px 0 #2980b9;">
+                Xem Đáp án 5 Câu Kế Tiếp (${endIndex + 1} - ${Math.min(endIndex + CAU_MOI_LAN, tongSoCau)}) &gt;&gt;
+            </button>
+        `;
+    } else {
+         htmlContent += `<p style="margin-top: 20px; font-weight: bold; color: #2ecc71;">🎉 Đã hiển thị hết tất cả đáp án!</p>`;
+    }
+
+    // 1. Gán HTML mới
+    container.innerHTML = htmlContent;
+
+    // 2. CUỘN TRANG LÊN ĐỂ CÂU ĐẦU TIÊN CỦA BATCH MỚI HIỂN THỊ
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    nutHien.style.display = 'none';
+    nutAn.style.display = 'inline-block';
+    
+    // Ẩn các nút kiểm tra khi đang xem đáp án
+    document.querySelector('button[onclick="kiemTraTracNghiem()"]').style.display = 'none';
+    const chuyenTiepBtn = document.querySelector('button[onclick="chuyenSangBatchTiepTheo()"]');
+    if (chuyenTiepBtn) chuyenTiepBtn.style.display = 'none'; 
+}
+
+// Giữ lại hàm cũ để gọi lần đầu tiên và quản lý nút
+function hienTatCaDapAn() {
+    hienThiBatchDapAn(0);
+}
+
+function anTatCaDapAn() {
+    const container = document.getElementById('quiz-container');
+    const nutHien = document.querySelector('button[onclick="hienTatCaDapAn()"]');
+    const nutAn = document.querySelector('button[onclick="anTatCaDapAn()"]');
+
+    // Đặt lại index xem đáp án
+    XEM_DAP_AN_INDEX = 0; 
+    
+    // Hiển thị lại batch câu hỏi hiện tại
+    hienThiCauHoi(); 
+    
+    nutHien.style.display = 'inline-block';
+    nutAn.style.display = 'none';
+    
+    // Hiển thị lại nút nộp bài/chuyển câu
+    document.querySelector('button[onclick="kiemTraTracNghiem()"]').style.display = 'inline-block';
+}
+    function taoDanhSachChuDe() {
+        const container = document.getElementById('danhSachChuDe');
+        let htmlContent = '<p><strong>Chọn một chủ đề để học:</strong></p><ul>';
+
+        CHU_DE_HOC_TAP.forEach((chuDe, index) => {
+            htmlContent += `
+                <li onclick="taiTaiLieu(${index})">
+                    ${chuDe.tieuDe}
+            </li>
+            `;
+        });
+
+        htmlContent += '</ul>';
+        container.innerHTML = htmlContent;
+    }
+    function toggleDanhSachChuDe() {
+        const danhSachDiv = document.getElementById('danhSachChuDe');
+        const button = document.querySelector('button[onclick="toggleDanhSachChuDe()"]');
+
+        if (danhSachDiv.style.display === 'none') {
+            danhSachDiv.style.display = 'block';
+            button.textContent = 'Ẩn Danh sách Chủ đề';
+        } else {
+            danhSachDiv.style.display = 'none';
+            button.textContent = 'Xem Danh sách Chủ đề';
+        }
+    }
+    function toggleTaiLieuMau() {
+        const taiLieuDiv = document.getElementById('taiLieuMau');
+        const button = document.getElementById('toggleBtn');
+        if (taiLieuDiv.style.display !== 'none') {
+            taiLieuDiv.style.display = 'none';
+            button.textContent = 'Hiện Tài liệu (Xem lại)';
+            button.style.backgroundColor = '#d9534f'; 
+        } else {
+            taiLieuDiv.style.display = 'block';
+            button.textContent = 'Ẩn Tài liệu (Bắt đầu gõ)';
+            button.style.backgroundColor = '#0066cc'; 
+        }
+    }
+    function taiTaiLieu(index) {
+        const chuDe = CHU_DE_HOC_TAP[index];
+        const taiLieuDiv = document.getElementById('taiLieuMau');
+        const toggleBtn = document.getElementById('toggleBtn');
+        TAI_LIEU_MAU_HIEN_TAI = chuDe.noiDung;
+        document.getElementById('tieuDeTaiLieuHienTai').textContent = chuDe.tieuDe;
+        taiLieuDiv.textContent = chuDe.noiDung;
+        taiLieuDiv.style.display = 'block'; 
+        toggleBtn.textContent = 'Ẩn Tài liệu (Bắt đầu gõ)'; 
+        toggleBtn.style.backgroundColor = '#0066cc';
+        document.getElementById('baiGo').value = ''; 
+        document.getElementById('ketQuaSoSanh').innerHTML = ''; 
+        const danhSachDiv = document.getElementById('danhSachChuDe');
+        if (danhSachDiv.style.display !== 'none') {
+            toggleDanhSachChuDe();
+        }
+    }
+    function normalizeText(text) {
+    let normalized = text.replace(/[.,;:]/g, ''); 
+    normalized = normalized.replace(/\s+/g, ' ').trim();
+    return normalized;
+}
+    function kiemTraBaiGo() {
+        const baiGo = document.getElementById('baiGo').value.trim();
+        const ketQuaDiv = document.getElementById('ketQuaSoSanh');
+
+        if (!baiGo) {
+            ketQuaDiv.innerHTML = '<p class="error">Vui lòng gõ nội dung vào ô để kiểm tra.</p>';
+            return;
+        }
+        const mauSach = TAI_LIEU_MAU_HIEN_TAI.trim();
+        const baiGoNormalized = normalizeText(baiGo);
+        const mauSachNormalized = normalizeText(mauSach);
+        if (baiGoNormalized === mauSachNormalized) {
+            ketQuaDiv.innerHTML = '<p class="correct">🎉 Chính xác tuyệt đối! Bạn đã thuộc bài.</p>';
+        } else {
+            ketQuaDiv.innerHTML = `
+                <p class="error">❌ Sai rồi! Có sự khác biệt giữa bài gõ của bạn và tài liệu mẫu.</p>
+                <h3>Kết quả so sánh chi tiết (Chỗ sai sẽ được đánh dấu):</h3>
+                <p><strong>Bài gõ của bạn:</strong> ${hienThiLoiSai(mauSach, baiGo)}</p>
+                <p><strong>Tài liệu đúng:</strong> ${hienThiLoiSai(baiGo, mauSach)}</p>
+            `;
+        }
+    }
+    function hienThiLoiSai(goc, soSanh) {
+        // Tách văn bản thành từ (bao gồm cả khoảng trắng và dấu câu)
+        const tuGoc = goc.match(/(\s+|\S+)/g) || []; 
+        const tuSoSanh = soSanh.match(/(\s+|\S+)/g) || [];
+        let ketQuaHTML = '';
+        
+        const isWord = (token) => token && token.trim() !== '' && !token.match(/^[.,;:]$/);
+
+        for (let i = 0; i < tuGoc.length; i++) {
+            const tokenGoc = tuGoc[i];
+            const tokenSoSanh = i < tuSoSanh.length ? tuSoSanh[i] : null;
+
+            // Nếu là khoảng trắng hoặc dấu câu, giữ nguyên (không coi là lỗi)
+            if (!isWord(tokenGoc)) {
+                ketQuaHTML += tokenGoc;
+                continue;
+            }
+
+            // So sánh từ (bỏ qua dấu câu và khoảng trắng)
+            if (tokenGoc === tokenSoSanh) {
+                ketQuaHTML += tokenGoc;
+            } else {
+                // Đánh dấu từ sai (tính cả viết hoa/thường, sai chính tả, thêm/bớt từ)
+                let isWordError = true;
+                if (tokenGoc.replace(/[.,;:]/g, '') === (tokenSoSanh ? tokenSoSanh.replace(/[.,;:]/g, '') : '')) {
+                     // Nếu chỉ sai dấu câu, không đánh dấu từ (vì đã chấp nhận bỏ qua dấu câu)
+                    isWordError = false;
+                }
+
+                if (isWordError) {
+                    ketQuaHTML += `<span class="diff-added" title="Sai/Thừa từ">${tokenGoc}</span>`; 
+                } else {
+                    ketQuaHTML += tokenGoc;
+                }
+            }
+        }
+        return ketQuaHTML;
+    }
+    function resetTracNghiem() {
+    // 1. Đặt lại biến trạng thái và điểm số
+    TONG_DIEM = 0;
+    
+    // Đặt lại mảng trạng thái câu hỏi về 0 (chưa làm)
+    TRANG_THAI_CAU_HOI.fill(0); 
+
+    // 2. Quay về câu hỏi đầu tiên
+    CAU_HOI_HIEN_TAI_INDEX = 0;
+
+    // 3. Hiển thị lại câu hỏi đầu tiên và cập nhật trạng thái
+    hienThiCauHoi();
+    
+    // 4. Cập nhật lại thanh tiến độ (loại bỏ màu xanh/đỏ)
+    capNhatTrangThaiNavigation();
+
+    // 5. Đảm bảo nút "Hiện Đáp án" đang ẩn
+    anTatCaDapAn(); 
+
+    alert("✅ Đã reset lại toàn bộ bài trắc nghiệm và điểm số!");
+
+    // Cuộn lên đầu phần Quiz
+    const quizContainer = document.getElementById('quiz-container');
+    if (quizContainer) {
+        quizContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+    function hienThiCauHoi() {
+    const container = document.getElementById('quiz-container');
+    const tongSoCau = CAU_HOI_TRAC_NGHIEM.length;
+    
+    // Tính toán giới hạn câu hỏi (batch 5 câu)
+    const startIndex = CAU_HOI_HIEN_TAI_INDEX;
+    const endIndex = Math.min(startIndex + CAU_MOI_LAN, tongSoCau);
+
+    if (startIndex >= tongSoCau) {
+        container.innerHTML = '<h2>🎉 Bạn đã hoàn thành tất cả các câu hỏi!</h2>';
+        // Ẩn nút nộp bài khi đã hoàn thành
+        document.querySelector('button[onclick="kiemTraTracNghiem()"]').style.display = 'none';
+        return;
+    }
+
+    let htmlContent = '';
+    
+    // Duyệt qua 5 câu (hoặc ít hơn nếu là nhóm cuối)
+    for (let index = startIndex; index < endIndex; index++) {
+        const cauHoi = CAU_HOI_TRAC_NGHIEM[index];
+        const tenRadio = `cau${index}`;
+
+        htmlContent += `<div class="question" id="q${index}">`;
+        htmlContent += `<p><strong>Câu ${index + 1}:</strong> ${cauHoi.cauhoi}</p>`;
+        
+        cauHoi.dapan.forEach((dapAn, dIndex) => {
+            const id = `q${index}-a${dIndex}`;
+            
+            // Tái tạo trạng thái đã chọn (nếu có)
+            let checkedAttr = '';
+            if (cauHoi.luaChonDaChon && cauHoi.luaChonDaChon === dapAn) {
+                checkedAttr = 'checked';
+            }
+            // Khóa input nếu đã làm và đang ở trạng thái đúng/sai
+            let disabledAttr = '';
+            if (TRANG_THAI_CAU_HOI[index] !== 0) {
+                 disabledAttr = 'disabled';
+            }
+
+            htmlContent += `
+                <div>
+                    <input type="radio" id="${id}" name="${tenRadio}" value="${dapAn}" ${checkedAttr} ${disabledAttr}>
+                    <label for="${id}">${dapAn}</label>
+                </div>
+            `;
+        });
+        
+        // Hiển thị phản hồi cũ (nếu có)
+        let feedbackContent = '';
+        let feedbackClass = 'feedback';
+        if (TRANG_THAI_CAU_HOI[index] === 1) {
+            feedbackClass += ' correct-answer';
+            feedbackContent = '✅ Chính xác';
+        } else if (TRANG_THAI_CAU_HOI[index] === -1) {
+            feedbackClass += ' wrong-answer';
+            feedbackContent = `❌ Sai rồi. Đáp án đúng là: **${cauHoi.dapanDung}**`;
+        }
+
+        htmlContent += `<div class="${feedbackClass}" id="feedback${index}">${feedbackContent}</div>`;
+        htmlContent += `</div>`;
+    }
+
+    container.innerHTML = htmlContent;
+    capNhatTrangThaiNavigation();
+    
+    // Cập nhật kết quả chung (giữ nguyên)
+    const soCauDaLam = TRANG_THAI_CAU_HOI.filter(st => st !== 0).length;
+    document.getElementById('ketQuaTracNghiem').innerHTML = `
+        <p>Tiến độ: **${soCauDaLam}/${tongSoCau}** | Điểm hiện tại: **${TONG_DIEM}**</p>
+    `;
+}
+
+    function taoBangTienDo() {
+    const navList = document.getElementById('navigation-list');
+    let navHtml = '';
+    
+    // Sửa lỗi: Khởi tạo mảng trạng thái dựa trên SỐ LƯỢNG CÂU HỎI THỰC TẾ
+    TRANG_THAI_CAU_HOI = new Array(CAU_HOI_TRAC_NGHIEM.length).fill(0); 
+
+    // Lặp qua số lượng câu hỏi thực tế để tạo navigation
+    CAU_HOI_TRAC_NGHIEM.forEach((_, index) => {
+        navHtml += `<span class="nav-item" id="nav-${index}" onclick="chuyenDenCau(${index})">${index + 1}</span>`;
+    });
+
+    navList.innerHTML = navHtml;
+    capNhatTrangThaiNavigation();
+}
+
+// Hàm để chuyển câu hỏi khi click vào ô navigation
+function chuyenDenCau(index) {
+    if (index >= 0 && index < CAU_HOI_TRAC_NGHIEM.length) {
+        CAU_HOI_HIEN_TAI_INDEX = index;
+        hienThiCauHoi();
+        capNhatTrangThaiNavigation();
+        
+        // Đặt lại nút về trạng thái kiểm tra
+        const nutKiemTra = document.querySelector('button[onclick="kiemTraTracNghiem()"]');
+        nutKiemTra.textContent = 'Nộp Bài Trắc Nghiệm';
+        nutKiemTra.onclick = kiemTraTracNghiem;
+        
+        // 🚀 THÊM DÒNG NÀY ĐỂ TỰ ĐỘNG CUỘN TRANG
+        const quizContainer = document.getElementById('quiz-container');
+        if (quizContainer) {
+            quizContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+}
+function chuyenDenPhan(id) {
+    const phanTu = document.getElementById(id);
+    if (phanTu) {
+        // Sử dụng scrollIntoView để cuộn mượt mà đến phần tử có ID đã cho
+        phanTu.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+function capNhatTrangThaiNavigation() {
+    TRANG_THAI_CAU_HOI.forEach((trangThai, index) => {
+        const navItem = document.getElementById(`nav-${index}`);
+        if (navItem) {
+            navItem.className = 'nav-item'; // Reset class
+
+            if (index === CAU_HOI_HIEN_TAI_INDEX) {
+                navItem.classList.add('current'); // Đang làm câu này
+            }
+            
+            // Cập nhật màu sắc theo trạng thái
+            if (trangThai === 1) {
+                navItem.classList.add('correct-nav');
+            } else if (trangThai === -1) {
+                navItem.classList.add('wrong-nav');
+            }
+        }
+    });
+}
+function chuyenSangBatchTiepTheo() {
+    const tongSoCau = CAU_HOI_TRAC_NGHIEM.length;
+    
+    // Tính toán index bắt đầu của nhóm câu tiếp theo
+    const startIndexTiepTheo = Math.min(CAU_HOI_HIEN_TAI_INDEX + CAU_MOI_LAN, tongSoCau);
+    
+    // Cập nhật index và hiển thị câu hỏi mới
+    CAU_HOI_HIEN_TAI_INDEX = startIndexTiepTheo;
+    hienThiCauHoi();
+    
+    // Đặt lại nút Nộp Bài về trạng thái ban đầu
+    const nutKiemTra = document.querySelector('button[onclick="chuyenSangBatchTiepTheo()"]');
+    if (nutKiemTra) {
+        nutKiemTra.textContent = 'Nộp Bài Trắc Nghiệm';
+        nutKiemTra.onclick = kiemTraTracNghiem; // Gán lại hàm kiểm tra ban đầu
+    }
+}
+    let TONG_DIEM = 0;
+    function kiemTraTracNghiem() {
+    const tongSoCau = CAU_HOI_TRAC_NGHIEM.length;
+    const startIndex = CAU_HOI_HIEN_TAI_INDEX;
+    const endIndex = Math.min(startIndex + CAU_MOI_LAN, tongSoCau);
+    let soCauChuaChon = 0;
+    
+    // 1. Kiểm tra và chấm điểm cho BATCH hiện tại
+    for (let index = startIndex; index < endIndex; index++) {
+        const cau = CAU_HOI_TRAC_NGHIEM[index];
+        const tenRadio = `cau${index}`;
+        const radios = document.getElementsByName(tenRadio);
+        let daChon = '';
+        
+        // Tìm câu trả lời đã chọn
+        for (const radio of radios) {
+            if (radio.checked) {
+                daChon = radio.value;
+                break;
+            }
+        }
+
+        const feedbackDiv = document.getElementById(`feedback${index}`);
+        
+        // Lưu lại lựa chọn của người dùng (quan trọng cho việc quay lại)
+        cau.luaChonDaChon = daChon; 
+
+        if (!daChon) {
+            soCauChuaChon++;
+            if (feedbackDiv) {
+                 feedbackDiv.className = 'feedback wrong-answer';
+                 feedbackDiv.innerHTML = '⚠️ **Bạn chưa chọn đáp án**.';
+            }
+            continue;
+        }
+
+        // Vô hiệu hóa input sau khi nộp
+        radios.forEach(radio => radio.disabled = true);
+        
+        // Chấm điểm
+        if (daChon === cau.dapanDung) {
+            if (TRANG_THAI_CAU_HOI[index] !== 1) { // Chỉ tăng điểm nếu chưa làm đúng
+                TONG_DIEM++;
+            }
+            TRANG_THAI_CAU_HOI[index] = 1; 
+            
+            if (feedbackDiv) {
+                feedbackDiv.className = 'feedback correct-answer';
+                feedbackDiv.innerHTML = '✅ Chính xác';
+            }
+        } else {
+            TRANG_THAI_CAU_HOI[index] = -1; // Đánh dấu sai
+            
+            if (feedbackDiv) {
+                // Hiển thị cả đáp án đúng khi trả lời sai
+                feedbackDiv.className = 'feedback wrong-answer';
+                feedbackDiv.innerHTML = `❌ Sai rồi. Đáp án đúng là: **${cau.dapanDung}**`;
+            }
+        }
+    }
+    
+    // 2. Cập nhật giao diện chung
+    capNhatTrangThaiNavigation(); 
+    const soCauDaLam = TRANG_THAI_CAU_HOI.filter(st => st !== 0).length;
+    document.getElementById('ketQuaTracNghiem').innerHTML = `
+        <p>Tiến độ: **${soCauDaLam}/${tongSoCau}** | Điểm hiện tại: **${TONG_DIEM}**</p>
+    `;
+
+    // 3. Xử lý thông báo và nút chuyển tiếp
+    const nutKiemTra = document.querySelector('button[onclick="kiemTraTracNghiem()"]');
+    
+    if (soCauChuaChon > 0) {
+        // Thông báo nếu còn câu chưa làm, giữ nguyên nút "Nộp Bài Trắc Nghiệm"
+        document.getElementById('ketQuaTracNghiem').innerHTML += `<p style="color:red;">❗️ Vui lòng chọn đáp án cho ${soCauChuaChon} câu còn lại trong nhóm này.</p>`;
+        
+    } else if (endIndex < tongSoCau) {
+        // Nếu đã làm hết 5 câu và chưa hết tổng số câu: 
+        // Thay đổi nút thành "5 Câu Kế Tiếp" và gắn hàm chuyển câu
+        nutKiemTra.textContent = '5 Câu Kế Tiếp >>';
+        nutKiemTra.onclick = chuyenSangBatchTiepTheo;
+        
+        document.getElementById('ketQuaTracNghiem').innerHTML += `<p style="color:#006600;">✅ **Đã chấm điểm!** Vui lòng xem lại lỗi sai rồi nhấn **"5 Câu Kế Tiếp"**.</p>`;
+    } else {
+        // Nếu đã hoàn thành tất cả các câu hỏi
+         nutKiemTra.textContent = 'Đã Hoàn Thành';
+         nutKiemTra.disabled = true;
+         document.getElementById('ketQuaTracNghiem').innerHTML += `<p style="color:#004d99; font-size: 1.2em;">🎉 **Hoàn thành bài kiểm tra!** Tổng điểm cuối cùng: **${TONG_DIEM}/${tongSoCau}**.</p>`;
+    }
+    // Cuộn lên đầu phần Quiz để người dùng thấy kết quả chấm điểm
+    document.getElementById('quiz-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+    let CAU_HOI_HIEN_TAI_INDEX = 0;
+    const CAU_MOI_LAN = 5;
+    let XEM_DAP_AN_INDEX = 0;
+    let TRANG_THAI_CAU_HOI = [];
+    document.addEventListener('DOMContentLoaded', () => {
+    taoDanhSachChuDe();  
+    taiTaiLieu(0);
+    taoBangTienDo(); 
+    hienThiCauHoi();
+    });
+</script>
+</body>
+</html>
